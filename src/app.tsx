@@ -1,5 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import FirstFlow from './components/FirstFlow';
 
-const HelloWorld = () => <h1>Hello world!</h1>
-render(<HelloWorld />, document.getElementById('root'));
+import 'reactflow/dist/style.css';
+
+const rootDomNode = document.getElementById('root')!;
+createRoot(rootDomNode).render(<FirstFlow />);
