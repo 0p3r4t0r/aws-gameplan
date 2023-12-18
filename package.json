@@ -3,7 +3,9 @@
     "build": "mkdir public/; cp src/index.html public/; esbuild src/app.tsx --bundle --minify --outfile=public/app.js",
     "build:dev": "mkdir public-dev; cp src/index.html public-dev/; esbuild src/app.tsx --bundle --sourcemap --outfile=public-dev/app.js",
     "serve": "esbuild --servedir=public",
-    "serve:dev": "esbuild --servedir=public-dev"
+    "serve:dev": "esbuild --servedir=public-dev",
+    "deploy": "npm run build; git subtree push --prefix public origin gh-pages",
+    "deploy:recreate": "git push origin -d gh-pages; npm run deploy"
   },
   "devDependencies": {
     "@types/react": "^18.2.45",
