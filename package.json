@@ -1,12 +1,15 @@
 {
   "scripts": {
-    "build": "cp src/index.html public/; esbuild src/app.jsx --bundle --minify --outfile=public/app.js",
-    "build:dev": "cp src/index.html public-dev/; esbuild src/app.jsx --bundle --sourcemap --outfile=public-dev/app.js",
+    "build": "mkdir public/; cp src/index.html public/; esbuild src/app.tsx --bundle --minify --outfile=public/app.js",
+    "build:dev": "mkdir public-dev; cp src/index.html public-dev/; esbuild src/app.tsx --bundle --sourcemap --outfile=public-dev/app.js",
     "serve": "npm run build -- --servedir=public",
     "serve:dev": "npm run build:dev -- --servedir=public-dev"
   },
   "devDependencies": {
-    "esbuild": "0.19.9"
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "esbuild": "0.19.9",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "react": "^18.2.0",
