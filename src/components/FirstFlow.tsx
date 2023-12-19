@@ -10,10 +10,13 @@ import ReactFlow, {
 } from 'reactflow';
  
 import 'reactflow/dist/style.css';
+import { ServiceSelector } from './services/ServiceSelector';
+import { AWS } from './services';
  
+// TODO: ensure type property belongs to aws nodes.
 const initialNodes = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+  { id: '1', type: 'ec2', position: { x: 0, y: 100 }, data: { label: 'EC2' } },
+  { id: '2', type: 'elb', position: { x: 0, y: 200 }, data: { label: 'ELB' } },
 ];
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
  
@@ -25,7 +28,7 @@ export default function FirstFlow() {
     (params: Parameters<typeof addEdge>[0]) => setEdges((eds) => addEdge(params, eds)),
     [setEdges],
   );
- 
+
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactFlow
@@ -34,7 +37,10 @@ export default function FirstFlow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        nodeTypes={AWS.services}
       >
+        {/* TODO: use state to avoid prop-drilling? */}
+        <ServiceSelector services={AWS.services} nodes={nodes} setNodes={setNodes}/>
         <Controls />
         <MiniMap />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

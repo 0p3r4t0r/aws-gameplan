@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
         "reactflow"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#111B89",
+        "titleBar.activeBackground": "#1725BF",
+        "titleBar.activeForeground": "#F9F9FE"
+    }
 }

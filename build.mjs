@@ -1,24 +1,27 @@
 import * as esbuild from 'esbuild';
 import * as fs from 'fs';
 
-const PATH = 'public-dev';
+const PATH = 'public';
 
-console.log('Building dev...');
+console.log('Building...');
 
 // Clean
 fs.rmSync(PATH, { recursive: true, force: true });
 fs.mkdirSync(PATH);
 
-// TODO: Copy files with esbuild?
+// Copy index.html
 fs.copyFileSync('src/index.html', `${PATH}/index.html`);
 
-const context = await esbuild.context({
+const options = {
     bundle: true,
     minify: true,
     entryPoints: ['src/app.tsx'],
     outfile: `${PATH}/app.js`,
     platform: 'browser',
-});
+    loader: { '.svg': 'dataurl' },
+}
+
+const context = await esbuild.context(options);
 
 await context.watch()
 
