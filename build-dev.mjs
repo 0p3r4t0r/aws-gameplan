@@ -9,7 +9,7 @@ console.log('Building dev...');
 fs.rmSync(PATH, { recursive: true, force: true });
 fs.mkdirSync(PATH);
 
-// TODO: Copy files with esbuild?
+// Copy index.html
 fs.copyFileSync('src/index.html', `${PATH}/index.html`);
 
 const context = await esbuild.context({
@@ -18,6 +18,7 @@ const context = await esbuild.context({
     outfile: `${PATH}/app.js`,
     platform: 'browser',
     sourcemap: true,
+    loader: { '.svg': 'dataurl' },
 });
 
 await context.watch()
