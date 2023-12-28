@@ -9,12 +9,13 @@
     "deploy:recreate": "git push origin -d gh-pages; npm run deploy"
   },
   "devDependencies": {
-    "@types/react-dom": "^18.2.18",
     "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
     "esbuild": "0.19.9",
-    "react-dom": "^18.2.0",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "reactflow": "^11.10.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "zustand": "^4.4.7"
   }
 }
