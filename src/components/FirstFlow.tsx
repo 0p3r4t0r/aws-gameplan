@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -8,19 +8,15 @@ import ReactFlow, {
   addEdge,
   BackgroundVariant,
 } from 'reactflow';
-import ec2Data from '../assets/awsIcons/Architecture-Service-Icons/Arch_Compute/Arch_Amazon-EC2_64.svg';
-import elbData from '../assets/awsIcons/Architecture-Service-Icons/Arch_Networking-Content-Delivery/Arch_Elastic-Load-Balancing_64.svg';
  
 import 'reactflow/dist/style.css';
-import { ResourceNode } from './Resource';
+import { ServiceSelector } from './services/ServiceSelector';
+import { AWS } from './services';
  
-const nodeTypes = {
-  ec2Node: () => <ResourceNode data={ec2Data} alt="ec2" />,
-  elbNode: () => <ResourceNode data={elbData} alt="elb" />,
-}
+// TODO: ensure type property belongs to aws nodes.
 const initialNodes = [
-  { id: '1', type: 'ec2Node', position: { x: 0, y: 0 }, data: { label: 'EC2' } },
-  { id: '2', type: 'elbNode', position: { x: 0, y: 100 }, data: { label: 'ELB' } },
+  { id: '1', type: 'ec2', position: { x: 0, y: 100 }, data: { label: 'EC2' } },
+  { id: '2', type: 'elb', position: { x: 0, y: 200 }, data: { label: 'ELB' } },
 ];
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
  
@@ -41,8 +37,10 @@ export default function FirstFlow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        nodeTypes={nodeTypes}
+        nodeTypes={AWS.services}
       >
+        {/* TODO: use state to avoid prop-drilling? */}
+        <ServiceSelector services={AWS.services} nodes={nodes} setNodes={setNodes}/>
         <Controls />
         <MiniMap />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

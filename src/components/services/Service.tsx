@@ -1,12 +1,12 @@
 import React from 'react';
 import { Handle, Position } from 'reactflow';
 
-type ResourceProps = {
+type ServiceNodeProps = {
     data: string;
     alt: string;
 }
 
-export const ResourceNode = ({ data, alt }: ResourceProps) => {
+export const ServiceNode = ({ data, alt }: ServiceNodeProps) => {
     return (
         <>
             <Handle type="target" position={Position.Top} />
