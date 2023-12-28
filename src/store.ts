@@ -13,19 +13,20 @@ import {
     OnConnect,
     applyNodeChanges,
     applyEdgeChanges,
+    ReactFlowInstance,
+    OnInit,
 } from 'reactflow';
 import { shallow } from 'zustand/shallow';
 
 
 type RFState = {
-    // base
     nodes: Node[],
     edges: Edge[],
+    rfInstance: ReactFlowInstance | null,
     onNodesChange: OnNodesChange,
     onEdgesChange: OnEdgesChange,
     onConnect: OnConnect,
-
-    // custom
+    onInit: OnInit,
     addNode: (key: string) => void,
 }
 
@@ -38,9 +39,9 @@ const initialNodes = [
 ];
 
 const initialEdges = [
-    { id: 'e1b_4-ec2_1', source: '4', target: '1' },
-    { id: 'e1b_4-ec2_2', source: '4', target: '2' },
-    { id: 'e1b_4-ec2_3', source: '4', target: '3' },
+    { id: 'elb_4-ec2_1', source: '4', target: '1' },
+    { id: 'elb_4-ec2_2', source: '4', target: '2' },
+    { id: 'elb_4-ec2_3', source: '4', target: '3' },
 ];
 
 
@@ -48,6 +49,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
     (set, get) => ({
         nodes: initialNodes,
         edges: initialEdges,
+        rfInstance: null,
         onNodesChange: (changes: NodeChange[]) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes),
@@ -62,6 +64,9 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             set({
                 edges: addEdge(connection, get().edges),
             });
+        },
+        onInit: (rfInstance) => {
+            set({ rfInstance })
         },
         addNode: (key) => {
             console.log(key);
