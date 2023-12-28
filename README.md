@@ -7,8 +7,16 @@ A visual diagram tool for AWS with support for terraform output.
 
 - [ ] Draw AWS architecture-diagrams
     - [x] Import AWS Icons.
-    - [ ] Be able to create a vpc with a subnet and an EC2 instance.
-    - [ ] Create a components for aws icons.
+    - [x] Create a components for aws icons.
+    - [ ] Be able to create...
+        - [x] EC2
+        - [x] ELB
+        - [ ] Target Group
+        - [ ] VPC
+        - [ ] Subnets 
+    - [ ] Attempt to generate Terraform
+
+
 - [ ] Firebase setup.
 - [ ] Saving and reloading flows.
 - [ ] PWA
