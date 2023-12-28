@@ -3,8 +3,8 @@
         "reactflow"
     ],
     "workbench.colorCustomizations": {
-        "activityBar.background": "#111B89",
-        "titleBar.activeBackground": "#1725BF",
+        "activityBar.background": "#FF9900",
+        "titleBar.activeBackground": "#FF9900",
         "titleBar.activeForeground": "#F9F9FE"
     }
 }
