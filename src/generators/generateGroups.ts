@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { exec } from 'child_process';
 
 function toCamelCase(str: string) {
   const prefix = str.split('_')[0];
@@ -15,6 +14,8 @@ function toCamelCase(str: string) {
  */
 
 function generate(directoryPath: string, outFilePath: string): void {
+  console.log('Generate from files in', directoryPath + ':');
+
   fs.mkdirSync(path.dirname(outFilePath), { recursive: true });
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
@@ -24,8 +25,6 @@ function generate(directoryPath: string, outFilePath: string): void {
 
     const filteredFiles = files.filter(file => !file.endsWith('_Dark.svg'));
     const writeStream = fs.createWriteStream(outFilePath, { flags: 'w' });
-
-    console.log('Files in', directoryPath + ':');
 
 
     // ------------------------------------------------------------------------
@@ -78,21 +77,8 @@ function generate(directoryPath: string, outFilePath: string): void {
 
     writeStream.end();
   });
-
-
-  // --------------------------------------------------------------------------
-  // Format
-  // --------------------------------------------------------------------------
-  exec(`npx prettier ${outFilePath} --write --print-width 1000`, (err, stdout, stderr) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(stdout);
-    console.error(stderr);
-  });
 }
 
 // Replace 'path/to/your/directory' with the actual path of the directory you want to list
-const targetDirectory = '../assets/awsIcons/Architecture-Group-Icons/';
-generate(targetDirectory, '../__generated__/groups.tsx');
+const targetDirectory = './assets/awsIcons/Architecture-Group-Icons/';
+generate(targetDirectory, './__generated__/groups.tsx');
