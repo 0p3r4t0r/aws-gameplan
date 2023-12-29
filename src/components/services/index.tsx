@@ -5,7 +5,7 @@ import { GroupNode } from './Group';
 
 import ec2Data from '../../assets/awsIcons/Architecture-Service-Icons/Arch_Compute/Arch_Amazon-EC2_64.svg';
 import elbData from '../../assets/awsIcons/Architecture-Service-Icons/Arch_Networking-Content-Delivery/Arch_Elastic-Load-Balancing_64.svg';
-import { AWS as A } from '../../scripts/groups';
+import { AWS as A } from '../../__generated__/groups';
 
 
 export namespace AWS {
