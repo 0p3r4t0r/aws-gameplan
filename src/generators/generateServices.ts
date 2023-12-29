@@ -73,11 +73,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         // Code
         // ------------------------------------------------------------------------
         const nameSpace = fileName.split('.')[0].charAt(0).toUpperCase() + fileName.split('.')[0].slice(1); 
-        writeStream.write(`
-          export namespace AWS {
-            export namespace Services {
-              export namespace ${nameSpace} {
-        `)
+        writeStream.write(`export const ${nameSpace} = {\n`);
 
 
         // ------------------------------------------------------------------------
@@ -86,25 +82,13 @@ function generate(directoryPath: string, outFilePath: string): void {
         filteredFiles.forEach(file => {
           const componentName = toCamelCase(file);
           writeStream.write(
-            `const ${componentName} = () => <ServiceNode data={${componentName}Data} title="${componentName}" />;\n`
+            `${componentName}: () => <ServiceNode data={${componentName}Data} title="${componentName}" />,\n`
           );
         });
         writeStream.write('\n');
 
 
-        // ------------------------------------------------------------------------
-        // Node Types
-        // ------------------------------------------------------------------------
-        writeStream.write('export const nodeTypes = {\n');
-        filteredFiles.forEach(file => {
-          const componentName = toCamelCase(file);
-          writeStream.write(
-            `${componentName},\n`
-          );
-        });
-
-
-        writeStream.write('}}}}');
+        writeStream.write('}');
         writeStream.end();
         // --------------------------------------------------------------------------
         // Format

@@ -49,10 +49,7 @@ function generate(directoryPath: string, outFilePath: string): void {
     // ------------------------------------------------------------------------
     // Code
     // ------------------------------------------------------------------------
-    writeStream.write(`
-      export namespace AWS {
-        export namespace Groups {
-    `)
+    writeStream.write('export const Groups = {\n');
 
 
     // ------------------------------------------------------------------------
@@ -61,24 +58,23 @@ function generate(directoryPath: string, outFilePath: string): void {
     filteredFiles.forEach(file => {
       const componentName = toCamelCase(file);
       writeStream.write(
-        `const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />;\n`
-      );
-    });
-    writeStream.write('\n');
-
-
-    // ------------------------------------------------------------------------
-    // Node Types
-    // ------------------------------------------------------------------------
-    writeStream.write('export const nodeTypes = {\n');
-    filteredFiles.forEach(file => {
-      const componentName = toCamelCase(file);
-      writeStream.write(
-        `${componentName},\n`
+        `${componentName}: () => <GroupNode data={${componentName}Data} title="${componentName}" />,\n`
       );
     });
 
-    writeStream.write('}}}');
+
+    // // ------------------------------------------------------------------------
+    // // Node Types
+    // // ------------------------------------------------------------------------
+    // writeStream.write('export const nodeTypes = {\n');
+    // filteredFiles.forEach(file => {
+    //   const componentName = toCamelCase(file);
+    //   writeStream.write(
+    //     `${componentName},\n`
+    //   );
+    // });
+
+    writeStream.write('}');
 
     writeStream.end();
   });
