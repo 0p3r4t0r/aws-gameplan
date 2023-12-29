@@ -32,10 +32,10 @@ type RFState = {
 
 
 const initialNodes: RFState['nodes'] = [
-    { id: '1', type: 'ec2', position: { x: 100, y: 250 }, data: { label: 'EC2' } },
-    { id: '2', type: 'ec2', position: { x: 200, y: 250 }, data: { label: 'EC2' } },
-    { id: '3', type: 'ec2', position: { x: 300, y: 250 }, data: { label: 'EC2' } },
-    { id: '4', type: 'elb', position: { x: 200, y: 100 }, data: { label: 'ELB' } },
+    { id: '1', type: 'AmazonEC2', position: { x: 100, y: 250 }, data: { label: 'EC2' } },
+    { id: '2', type: 'AmazonEC2', position: { x: 200, y: 250 }, data: { label: 'EC2' } },
+    { id: '3', type: 'AmazonEC2', position: { x: 300, y: 250 }, data: { label: 'EC2' } },
+    { id: '4', type: 'ElasticLoadBalancing', position: { x: 200, y: 100 }, data: { label: 'ELB' } },
     { id: '5', type: 'VirtualPrivateCloudVPC', position: { x: 75, y: 75 }, data: { label: 'VPC' } },
 ];
 

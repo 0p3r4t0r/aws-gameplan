@@ -1,20 +1,15 @@
 import React from 'react';
-import { ServiceNode } from './Service';
 import { NodeTypes } from 'reactflow';
-import { GroupNode } from './Group';
 
-import ec2Data from '../../assets/awsIcons/Architecture-Service-Icons/Arch_Compute/Arch_Amazon-EC2_64.svg';
-import elbData from '../../assets/awsIcons/Architecture-Service-Icons/Arch_Networking-Content-Delivery/Arch_Elastic-Load-Balancing_64.svg';
-import { AWS as A } from '../../__generated__/groups';
+import { AWS as AWSGroups } from '../../__generated__/groups';
+import {AWS as AWSCompute } from '../../__generated__/services/compute';
+import {AWS as AWSNetworkingContentDelivery } from '../../__generated__/services/networkingContentDelivery';
 
 
 export namespace AWS {
-    const EC2 = () => <ServiceNode data={ec2Data} alt="ec2" />
-    const ElasticLoadBalancing = () => <ServiceNode data={elbData} alt="elb" />
-
     export const services: NodeTypes = {
-        ec2: EC2,
-        elb: ElasticLoadBalancing,
-        ...A.Groups.nodeTypes
+        AmazonEC2: AWSCompute.Services.Compute.nodeTypes.AmazonEC2,
+        ElasticLoadBalancing: AWSNetworkingContentDelivery.Services.NetworkingContentDelivery.nodeTypes.ElasticLoadBalancing,
+        ...AWSGroups.Groups.nodeTypes
     }
 }
