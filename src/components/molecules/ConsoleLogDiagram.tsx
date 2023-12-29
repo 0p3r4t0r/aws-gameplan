@@ -3,11 +3,7 @@ import { useGamePlanStore } from "../../store";
 
 
 export const ConsoleLogDiagram = () => {
-    const { rfInstance } = useGamePlanStore(
-        (state) => ({
-            rfInstance: state.rfInstance,
-        })
-    );
+    const rfInstance = useGamePlanStore(state => state.rfInstance);
 
     const onClick = useCallback(() => {
         if (rfInstance) {
