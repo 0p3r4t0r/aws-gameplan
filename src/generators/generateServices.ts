@@ -58,7 +58,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         // ------------------------------------------------------------------------
         writeStream.write(`
           import React from 'react';
-          import { ServiceNode } from '../../components/services/Service';\n
+          import { ServiceNode } from '../../components/atoms/Service';\n
         `);
 
 

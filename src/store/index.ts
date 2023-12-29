@@ -15,13 +15,17 @@ import {
     applyEdgeChanges,
     ReactFlowInstance,
     OnInit,
+    NodeTypes,
 } from 'reactflow';
 import { shallow } from 'zustand/shallow';
+
+import { nodeTypes } from './nodeTypes';
 
 
 type RFState = {
     nodes: Node[],
     edges: Edge[],
+    nodeTypes: NodeTypes,
     rfInstance: ReactFlowInstance | null,
     onNodesChange: OnNodesChange,
     onEdgesChange: OnEdgesChange,
@@ -51,6 +55,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
         nodes: initialNodes,
         edges: initialEdges,
         rfInstance: null,
+        nodeTypes,
         onNodesChange: (changes: NodeChange[]) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes),

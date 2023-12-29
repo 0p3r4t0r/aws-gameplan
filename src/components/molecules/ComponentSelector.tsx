@@ -1,14 +1,11 @@
 import React from "react"
-import { NodeTypes } from "reactflow"
 import { useGamePlanStore } from "../../store"
 
-type ServiceSelectorProps = {
-    services: NodeTypes
-}
-
-export const ServiceSelector = ({ services }: ServiceSelectorProps) => {
+export const ComponentSelector = () => {
+    const nodeTypes = useGamePlanStore(state => state.nodeTypes);
     const addNode = useGamePlanStore(state => state.addNode);
-    const [serviceKeys, setServicesKeys] = React.useState(Object.keys(services).sort());
+
+    const [serviceKeys, setServicesKeys] = React.useState(Object.keys(nodeTypes).sort());
 
     return (
         <div style={{
@@ -31,7 +28,7 @@ export const ServiceSelector = ({ services }: ServiceSelectorProps) => {
                 if (searchString) {
                     setServicesKeys(serviceKeys.filter(key => key.toLowerCase().includes(e.target.value.toLowerCase())))
                 } else {
-                    setServicesKeys(Object.keys(services).sort())
+                    setServicesKeys(Object.keys(nodeTypes).sort())
                 }
             }} />
             <div style={{
