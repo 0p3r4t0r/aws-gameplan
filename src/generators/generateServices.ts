@@ -47,7 +47,7 @@ function generate(directoryPath: string, outFilePath: string): void {
           return;
         }
 
-        const filteredFiles = files.filter(file => !file.endsWith('_Dark.svg'));
+        const filteredFiles = files.filter(file => !file.endsWith('_Dark_64.svg'));
 
         const writeTo = path.join(outDir, fileName);
         const writeStream = fs.createWriteStream(writeTo, { flags: 'w' });
@@ -66,7 +66,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         // Imports: SVG files
         // ------------------------------------------------------------------------
         filteredFiles.forEach(file => {
-          writeStream.write(`import ${toCamelCase(file)}Data from '${path.join('..', directoryPath, directory, file)}';\n`);
+          writeStream.write(`import ${toCamelCase(file)}Data from '${path.join('../..', directoryPath, directory, file)}';\n`);
         });
         writeStream.write('\n');
 
