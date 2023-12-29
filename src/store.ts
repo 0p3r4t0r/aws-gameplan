@@ -36,7 +36,7 @@ const initialNodes: RFState['nodes'] = [
     { id: '2', type: 'ec2', position: { x: 200, y: 250 }, data: { label: 'EC2' } },
     { id: '3', type: 'ec2', position: { x: 300, y: 250 }, data: { label: 'EC2' } },
     { id: '4', type: 'elb', position: { x: 200, y: 100 }, data: { label: 'ELB' } },
-    { id: '5', type: 'vpc', position: { x: 75, y: 75 }, data: { label: 'VPC' } },
+    { id: '5', type: 'VirtualPrivateCloudVPC', position: { x: 75, y: 75 }, data: { label: 'VPC' } },
 ];
 
 const initialEdges: RFState['edges'] = [

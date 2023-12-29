@@ -15,16 +15,36 @@ import ServerContentsData from '../assets/awsIcons/Architecture-Group-Icons/Serv
 import SpotFleetData from '../assets/awsIcons/Architecture-Group-Icons/Spot-Fleet_32.svg'
 import VirtualPrivateCloudVPCData from '../assets/awsIcons/Architecture-Group-Icons/Virtual-private-cloud-VPC_32.svg'
 
-export const AWSAccount = () => <GroupNode data={AWSAccountData} title="AWSAccount" />
-export const AWSCloudLogo = () => <GroupNode data={AWSCloudLogoData} title="AWSCloudLogo" />
-export const AWSCloud = () => <GroupNode data={AWSCloudData} title="AWSCloud" />
-export const AWSIoTGreengrassDeployment = () => <GroupNode data={AWSIoTGreengrassDeploymentData} title="AWSIoTGreengrassDeployment" />
-export const AutoScalingGroup = () => <GroupNode data={AutoScalingGroupData} title="AutoScalingGroup" />
-export const CorporateDataCenter = () => <GroupNode data={CorporateDataCenterData} title="CorporateDataCenter" />
-export const EC2InstanceContents = () => <GroupNode data={EC2InstanceContentsData} title="EC2InstanceContents" />
-export const PrivateSubnet = () => <GroupNode data={PrivateSubnetData} title="PrivateSubnet" />
-export const PublicSubnet = () => <GroupNode data={PublicSubnetData} title="PublicSubnet" />
-export const Region = () => <GroupNode data={RegionData} title="Region" />
-export const ServerContents = () => <GroupNode data={ServerContentsData} title="ServerContents" />
-export const SpotFleet = () => <GroupNode data={SpotFleetData} title="SpotFleet" />
-export const VirtualPrivateCloudVPC = () => <GroupNode data={VirtualPrivateCloudVPCData} title="VirtualPrivateCloudVPC" />
+export namespace AWS {
+    export namespace Groups {
+        const AWSAccount = () => <GroupNode data={AWSAccountData} title="AWSAccount" />
+        const AWSCloudLogo = () => <GroupNode data={AWSCloudLogoData} title="AWSCloudLogo" />
+        const AWSCloud = () => <GroupNode data={AWSCloudData} title="AWSCloud" />
+        const AWSIoTGreengrassDeployment = () => <GroupNode data={AWSIoTGreengrassDeploymentData} title="AWSIoTGreengrassDeployment" />
+        const AutoScalingGroup = () => <GroupNode data={AutoScalingGroupData} title="AutoScalingGroup" />
+        const CorporateDataCenter = () => <GroupNode data={CorporateDataCenterData} title="CorporateDataCenter" />
+        const EC2InstanceContents = () => <GroupNode data={EC2InstanceContentsData} title="EC2InstanceContents" />
+        const PrivateSubnet = () => <GroupNode data={PrivateSubnetData} title="PrivateSubnet" />
+        const PublicSubnet = () => <GroupNode data={PublicSubnetData} title="PublicSubnet" />
+        const Region = () => <GroupNode data={RegionData} title="Region" />
+        const ServerContents = () => <GroupNode data={ServerContentsData} title="ServerContents" />
+        const SpotFleet = () => <GroupNode data={SpotFleetData} title="SpotFleet" />
+        const VirtualPrivateCloudVPC = () => <GroupNode data={VirtualPrivateCloudVPCData} title="VirtualPrivateCloudVPC" />
+
+        export const nodeTypes = {
+            AWSAccount,
+            AWSCloudLogo,
+            AWSCloud,
+            AWSIoTGreengrassDeployment,
+            AutoScalingGroup,
+            CorporateDataCenter,
+            EC2InstanceContents,
+            PrivateSubnet,
+            PublicSubnet,
+            Region,
+            ServerContents,
+            SpotFleet,
+            VirtualPrivateCloudVPC,
+        }
+    }
+}
