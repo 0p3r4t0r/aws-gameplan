@@ -12,9 +12,7 @@ export const GroupNode = ({ data, title }: GroupNodeProps) => {
     return (
         <div style={{width: 360, height: 360}}>
             <img alt={title} src={data} title={title} width="32" height="32" />
-            <NodeResizer minHeight={100} minWidth={100} />
-            <Handle type="target" position={Position.Top} />
-            <Handle type="source" position={Position.Bottom} />
+            <NodeResizer minHeight={32} minWidth={32} />
         </div>
     )
 }

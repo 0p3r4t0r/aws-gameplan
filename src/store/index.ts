@@ -36,17 +36,40 @@ type RFState = {
 
 
 const initialNodes: RFState['nodes'] = [
-    { id: '1', type: 'AmazonEC2', position: { x: 100, y: 250 }, data: { label: 'EC2' } },
-    { id: '2', type: 'AmazonEC2', position: { x: 200, y: 250 }, data: { label: 'EC2' } },
-    { id: '3', type: 'AmazonEC2', position: { x: 300, y: 250 }, data: { label: 'EC2' } },
-    { id: '4', type: 'ElasticLoadBalancing', position: { x: 200, y: 100 }, data: { label: 'ELB' } },
-    { id: '5', type: 'VirtualPrivateCloudVPC', position: { x: 75, y: 75 }, data: { label: 'VPC' } },
+    { 
+        id: '1',
+        data: { label: 'VPC' },
+        position: { x: 75, y: 75 },
+        type: 'VirtualPrivateCloudVPC',
+
+        style: { width: 360, height: 360 },
+    },
+    { 
+        id: '2',
+        data: { label: 'ELB' },
+        position: { x: 148, y: 50 },
+        type: 'ElasticLoadBalancing',
+        parentNode: '1',
+    },
+    {
+        id: '3',
+        data: { label: 'EC2' },
+        position: { x: 88, y: 250 },
+        type: 'AmazonEC2',
+        parentNode: '1'
+    },
+    {
+        id: '4',
+        data: { label: 'EC2' },
+        position: { x: 208, y: 250 },
+        type: 'AmazonEC2',
+        parentNode: '1'
+    },
 ];
 
 const initialEdges: RFState['edges'] = [
-    { id: 'elb_4-ec2_1', source: '4', target: '1' },
-    { id: 'elb_4-ec2_2', source: '4', target: '2' },
-    { id: 'elb_4-ec2_3', source: '4', target: '3' },
+    { id: '2-3', source: '2', target: '3' },
+    { id: '2-4', source: '2', target: '4' },
 ];
 
 
