@@ -8,7 +8,7 @@ import ReactFlow, {
  
 import 'reactflow/dist/style.css';
 import { ServiceSelector } from './services/ServiceSelector';
-import { AWS } from './services';
+import { services } from './services';
 import { useGamePlanStore } from '../store';
 import { ConsoleLogDiagram } from './utils/ConsoleLogDiagram';
 
@@ -33,11 +33,10 @@ export default function MainFlow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        nodeTypes={AWS.services}
+        nodeTypes={services}
         onInit={onInit}
       >
-        {/* TODO: use state to avoid prop-drilling? */}
-        <ServiceSelector services={AWS.services} />
+        <ServiceSelector services={services} />
         <Controls />
         <MiniMap />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
