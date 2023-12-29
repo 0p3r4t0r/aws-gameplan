@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { exec } from 'child_process';
 
 /**
  * Remove Arch_ prefix from each directory name.
@@ -29,6 +28,8 @@ function toCamelCase(str: string) {
  */
 
 function generate(directoryPath: string, outFilePath: string): void {
+  console.log('Generate from files in', directoryPath + ':');
+
   const outDir = path.dirname(outFilePath);
   fs.mkdirSync(outDir, { recursive: true });
 
@@ -47,6 +48,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         }
 
         const filteredFiles = files.filter(file => !file.endsWith('_Dark.svg'));
+
         const writeTo = path.join(outDir, fileName);
         const writeStream = fs.createWriteStream(writeTo, { flags: 'w' });
 
@@ -90,53 +92,13 @@ function generate(directoryPath: string, outFilePath: string): void {
 
         writeStream.write('}');
         writeStream.end();
-        // --------------------------------------------------------------------------
-        // Format
-        // --------------------------------------------------------------------------
-        exec(`npx prettier ${writeTo} --write --print-width 1000`, (err, stdout, stderr) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          console.log(stdout);
-          console.error(stderr);
-        });
       });
     })
-    // const filteredFiles = files.filter(file => !file.endsWith('_Dark.svg'));
-
-
-    // // ------------------------------------------------------------------------
-    // // Components
-    // // ------------------------------------------------------------------------
-    // filteredFiles.forEach(file => {
-    //   const componentName = toCamelCase(file);
-    //   writeStream.write(
-    //     `const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />;\n`
-    //   );
-    // });
-    // writeStream.write('\n');
-
-
-    // // ------------------------------------------------------------------------
-    // // Node Types
-    // // ------------------------------------------------------------------------
-    // writeStream.write('export const nodeTypes = {\n');
-    // filteredFiles.forEach(file => {
-    //   const componentName = toCamelCase(file);
-    //   writeStream.write(
-    //     `${componentName},\n`
-    //   );
-    // });
-
-    // writeStream.write('}}}');
-
-    // writeStream.end();
   });
 
 
 }
 
 // Replace 'path/to/your/directory' with the actual path of the directory you want to list
-const targetDirectory = '../assets/awsIcons/Architecture-Service-Icons/';
-generate(targetDirectory, '../__generated__/services/services.tsx');
+const targetDirectory = './assets/awsIcons/Architecture-Service-Icons/';
+generate(targetDirectory, './__generated__/services/services.tsx');
