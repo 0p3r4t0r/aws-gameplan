@@ -6,7 +6,7 @@ import { NetworkingContentDelivery } from '../../__generated__/services/networki
 
 
 export const services: NodeTypes = {
-    AmazonEC2: Compute.AmazonEC2,
-    ElasticLoadBalancing: NetworkingContentDelivery.ElasticLoadBalancing,
+    ...Compute,
+    ...NetworkingContentDelivery,
     ...Groups
 }
