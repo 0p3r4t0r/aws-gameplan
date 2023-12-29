@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { exec } from 'child_process';
 
 // TODO: Cast filename to camel case
 function format(str: string) {
@@ -25,27 +26,40 @@ function listFilesInDirectory(directoryPath: string): void {
 
     console.log('Files in', directoryPath + ':');
 
-    // Other imports
-    writeStream.write("import React from 'react'\n");
-    writeStream.write("import { GroupNode } from '../components/services/Group'\n");
-    writeStream.write('\n');
 
-    // Generate svg imports
+    // ------------------------------------------------------------------------
+    // Imports
+    // ------------------------------------------------------------------------
+    writeStream.write(`
+      import React from 'react';
+      import { GroupNode } from '../components/services/Group';\n
+    `);
+
+    // ------------------------------------------------------------------------
+    // Imports: SVG files
+    // ------------------------------------------------------------------------
     filteredFiles.forEach(file => {
-      writeStream.write(`import ${format(file)}Data from '${directoryPath}${file}'\n`);
+      writeStream.write(`import ${format(file)}Data from '${directoryPath}${file}';\n`);
     });
     writeStream.write('\n');
 
-    writeStream.write('export namespace AWS {\n');
-    writeStream.write('export namespace Groups {\n');
+
+    // ------------------------------------------------------------------------
+    // Code
+    // ------------------------------------------------------------------------
+    writeStream.write(`
+      export namespace AWS {
+        export namespace Groups {
+    `)
 
     // Generate components
     filteredFiles.forEach(file => {
       const componentName = format(file);
       writeStream.write(
-        `const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />\n`
+        `const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />;\n`
       );
     });
+    writeStream.write('\n');
 
     writeStream.write('export const nodeTypes = {\n');
     filteredFiles.forEach(file => {
@@ -55,11 +69,18 @@ function listFilesInDirectory(directoryPath: string): void {
       );
     });
 
-    writeStream.write('}\n');
-    writeStream.write('}\n');
-    writeStream.write('}\n');
+    writeStream.write('}}}');
 
     writeStream.end();
+  });
+
+  exec('npx prettier groups.tsx --write --print-width 1000', (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(stdout);
+    console.error(stderr);
   });
 }
 
