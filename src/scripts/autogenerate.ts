@@ -1,20 +1,19 @@
 import * as fs from 'fs';
 import { exec } from 'child_process';
 
-// TODO: Cast filename to camel case
-function format(str: string) {
+function toCamelCase(str: string) {
   const prefix = str.split('_')[0];
-  const camelCase = prefix.split('-')
+  return prefix.split('-')
     .map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
     .join('');
-  return camelCase;
 }
+
 
 /**
  * Generate all code for groups and services
  */
 
-function listFilesInDirectory(directoryPath: string): void {
+function generate(directoryPath: string): void {
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
       console.error('Error reading directory:', err);
@@ -35,11 +34,12 @@ function listFilesInDirectory(directoryPath: string): void {
       import { GroupNode } from '../components/services/Group';\n
     `);
 
+
     // ------------------------------------------------------------------------
     // Imports: SVG files
     // ------------------------------------------------------------------------
     filteredFiles.forEach(file => {
-      writeStream.write(`import ${format(file)}Data from '${directoryPath}${file}';\n`);
+      writeStream.write(`import ${toCamelCase(file)}Data from '${directoryPath}${file}';\n`);
     });
     writeStream.write('\n');
 
@@ -52,18 +52,25 @@ function listFilesInDirectory(directoryPath: string): void {
         export namespace Groups {
     `)
 
-    // Generate components
+
+    // ------------------------------------------------------------------------
+    // Components
+    // ------------------------------------------------------------------------
     filteredFiles.forEach(file => {
-      const componentName = format(file);
+      const componentName = toCamelCase(file);
       writeStream.write(
         `const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />;\n`
       );
     });
     writeStream.write('\n');
 
+
+    // ------------------------------------------------------------------------
+    // Node Types
+    // ------------------------------------------------------------------------
     writeStream.write('export const nodeTypes = {\n');
     filteredFiles.forEach(file => {
-      const componentName = format(file);
+      const componentName = toCamelCase(file);
       writeStream.write(
         `${componentName},\n`
       );
@@ -74,6 +81,10 @@ function listFilesInDirectory(directoryPath: string): void {
     writeStream.end();
   });
 
+
+  // --------------------------------------------------------------------------
+  // Format
+  // --------------------------------------------------------------------------
   exec('npx prettier groups.tsx --write --print-width 1000', (err, stdout, stderr) => {
     if (err) {
       console.error(err);
@@ -86,4 +97,4 @@ function listFilesInDirectory(directoryPath: string): void {
 
 // Replace 'path/to/your/directory' with the actual path of the directory you want to list
 const targetDirectory = '../assets/awsIcons/Architecture-Group-Icons/';
-listFilesInDirectory(targetDirectory);
+generate(targetDirectory);
