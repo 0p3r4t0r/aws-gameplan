@@ -5,7 +5,7 @@ import { GroupNode } from './Group';
 
 import ec2Data from '../../assets/awsIcons/Architecture-Service-Icons/Arch_Compute/Arch_Amazon-EC2_64.svg';
 import elbData from '../../assets/awsIcons/Architecture-Service-Icons/Arch_Networking-Content-Delivery/Arch_Elastic-Load-Balancing_64.svg';
-import { PrivateSubnet, PublicSubnet, VirtualPrivateCloudVPC } from '../../scripts/groups';
+import { AWS as A } from '../../scripts/groups';
 
 
 export namespace AWS {
@@ -15,8 +15,6 @@ export namespace AWS {
     export const services: NodeTypes = {
         ec2: EC2,
         elb: ElasticLoadBalancing,
-        vpc: VirtualPrivateCloudVPC,
-        privateSubnet: PrivateSubnet,
-        publicSubnet: PublicSubnet,
+        ...A.Groups.nodeTypes
     }
 }

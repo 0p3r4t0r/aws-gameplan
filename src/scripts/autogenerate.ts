@@ -36,13 +36,28 @@ function listFilesInDirectory(directoryPath: string): void {
     });
     writeStream.write('\n');
 
+    writeStream.write('export namespace AWS {\n');
+    writeStream.write('export namespace Groups {\n');
+
     // Generate components
     filteredFiles.forEach(file => {
       const componentName = format(file);
       writeStream.write(
-        `export const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />\n`
+        `const ${componentName} = () => <GroupNode data={${componentName}Data} title="${componentName}" />\n`
       );
     });
+
+    writeStream.write('export const nodeTypes = {\n');
+    filteredFiles.forEach(file => {
+      const componentName = format(file);
+      writeStream.write(
+        `${componentName},\n`
+      );
+    });
+
+    writeStream.write('}\n');
+    writeStream.write('}\n');
+    writeStream.write('}\n');
 
     writeStream.end();
   });
