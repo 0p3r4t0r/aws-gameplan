@@ -32,7 +32,7 @@ function generate(directoryPath: string, outFilePath: string): void {
     // ------------------------------------------------------------------------
     writeStream.write(`
       import React from 'react';
-      import { GroupNode } from '../components/services/Group';\n
+      import { GroupNode } from '../components/atoms/Group';\n
     `);
 
 
