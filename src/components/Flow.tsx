@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -7,12 +7,12 @@ import ReactFlow, {
 } from 'reactflow';
  
 import 'reactflow/dist/style.css';
-import { ServiceSelector } from './services/ServiceSelector';
-import { AWS } from './services';
+import { ComponentSelector } from './molecules/ComponentSelector';
+import { nodeTypes } from '../store/nodeTypes';
 import { useGamePlanStore } from '../store';
-import { ConsoleLogDiagram } from './utils/ConsoleLogDiagram';
+import { ConsoleLogDiagram } from './molecules/ConsoleLogDiagram';
 
-export default function MainFlow() {
+export default function Flow() {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, onInit } = useGamePlanStore(
     (state) => ({
       nodes: state.nodes,
@@ -33,11 +33,10 @@ export default function MainFlow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        nodeTypes={AWS.services}
+        nodeTypes={nodeTypes}
         onInit={onInit}
       >
-        {/* TODO: use state to avoid prop-drilling? */}
-        <ServiceSelector services={AWS.services} />
+        <ComponentSelector />
         <Controls />
         <MiniMap />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

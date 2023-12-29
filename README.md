@@ -8,12 +8,12 @@ A visual diagram tool for AWS with support for terraform output.
 - [ ] Draw AWS architecture-diagrams
     - [x] Import AWS Icons.
     - [x] Create a components for aws icons.
-    - [ ] Be able to create...
+    - [x] Be able to create...
         - [x] EC2
         - [x] ELB
-        - [ ] Target Group
-        - [ ] VPC
-        - [ ] Subnets 
+        - [x] VPC
+        - [x] Subnets 
+    - [ ] Make nodes inside a group a child (solves the z-index problem)
     - [ ] Attempt to generate Terraform
 
 
