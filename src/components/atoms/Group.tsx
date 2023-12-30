@@ -11,7 +11,7 @@ type GroupNodeProps = {
 export const GroupNode = ({ data, title }: GroupNodeProps) => {
     return (
         <div style={{width: 360, height: 360}}>
-            <img alt={title} src={data} title={title} width="32" height="32" />
+            <img className="group-drag-handle" alt={title} src={data} title={title} width="32" height="32" />
             <NodeResizer minHeight={32} minWidth={32} />
         </div>
     )

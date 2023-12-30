@@ -20,6 +20,7 @@ import {
 import { shallow } from 'zustand/shallow';
 
 import { nodeTypes } from './nodeTypes';
+import { Groups } from '../__generated__/groups';
 
 
 type RFState = {
@@ -35,35 +36,40 @@ type RFState = {
 }
 
 
+// Ensure that services inside a group can be clicked.
+const groupProperties: Partial<Node> = {
+    dragHandle: ".group-drag-handle",
+    selectable: false,
+    zIndex: -10,
+}
+
+
 const initialNodes: RFState['nodes'] = [
-    { 
+    {
         id: '1',
         data: { label: 'VPC' },
-        position: { x: 75, y: 75 },
+        position: { x: 100, y: 100 },
         type: 'VirtualPrivateCloudVPC',
-
         style: { width: 360, height: 360 },
+        ...groupProperties,
     },
-    { 
+    {
         id: '2',
         data: { label: 'ELB' },
-        position: { x: 148, y: 50 },
+        position: { x: 248, y: 150 },
         type: 'ElasticLoadBalancing',
-        parentNode: '1',
     },
     {
         id: '3',
         data: { label: 'EC2' },
-        position: { x: 88, y: 250 },
+        position: { x: 166, y: 300 },
         type: 'AmazonEC2',
-        parentNode: '1'
     },
     {
         id: '4',
         data: { label: 'EC2' },
-        position: { x: 208, y: 250 },
+        position: { x: 330, y: 300 },
         type: 'AmazonEC2',
-        parentNode: '1'
     },
 ];
 
@@ -102,7 +108,14 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             const nodes = get().nodes;
 
             const newNodeId = (nodes.length + 1).toString();
-            const newNode = {id : newNodeId, type: key, position: { x: 50, y: 50 }, data: { label: key }};
+            const newNode = {
+                id: newNodeId,
+                data: { label: key },
+                position: { x: 50, y: 50 },
+                type: key,
+
+                ...(key in Groups && groupProperties)
+            };
             set({
                 nodes: [...nodes, newNode]
             })
