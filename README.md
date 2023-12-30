@@ -13,7 +13,7 @@ A visual diagram tool for AWS with support for terraform output.
         - [x] ELB
         - [x] VPC
         - [x] Subnets 
-    - [ ] Make nodes inside a group a child (solves the z-index problem)
+    - [x] Make nodes inside a group a child (solves the z-index problem)
     - [ ] Attempt to generate Terraform
 
 
@@ -24,7 +24,3 @@ A visual diagram tool for AWS with support for terraform output.
 
 
 ## Thoughts
-
-We should consider redoing the directory structure to match that defined by the icons.
-
-The naming has gotten confusing and needs to be redone.

@@ -20,6 +20,7 @@ import {
 import { shallow } from 'zustand/shallow';
 
 import { nodeTypes } from './nodeTypes';
+import { Groups } from '../__generated__/groups';
 
 
 type RFState = {
@@ -35,18 +36,46 @@ type RFState = {
 }
 
 
+// Ensure that services inside a group can be clicked.
+const groupProperties: Partial<Node> = {
+    dragHandle: ".group-drag-handle",
+    selectable: false,
+    zIndex: -10,
+}
+
+
 const initialNodes: RFState['nodes'] = [
-    { id: '1', type: 'AmazonEC2', position: { x: 100, y: 250 }, data: { label: 'EC2' } },
-    { id: '2', type: 'AmazonEC2', position: { x: 200, y: 250 }, data: { label: 'EC2' } },
-    { id: '3', type: 'AmazonEC2', position: { x: 300, y: 250 }, data: { label: 'EC2' } },
-    { id: '4', type: 'ElasticLoadBalancing', position: { x: 200, y: 100 }, data: { label: 'ELB' } },
-    { id: '5', type: 'VirtualPrivateCloudVPC', position: { x: 75, y: 75 }, data: { label: 'VPC' } },
+    {
+        id: '1',
+        data: { label: 'VPC' },
+        position: { x: 100, y: 100 },
+        type: 'VirtualPrivateCloudVPC',
+        style: { width: 360, height: 360 },
+        ...groupProperties,
+    },
+    {
+        id: '2',
+        data: { label: 'ELB' },
+        position: { x: 248, y: 150 },
+        type: 'ElasticLoadBalancing',
+    },
+    {
+        id: '3',
+        data: { label: 'EC2' },
+        position: { x: 166, y: 300 },
+        type: 'AmazonEC2',
+    },
+    {
+        id: '4',
+        data: { label: 'EC2' },
+        position: { x: 330, y: 300 },
+        type: 'AmazonEC2',
+    },
 ];
 
 const initialEdges: RFState['edges'] = [
-    { id: 'elb_4-ec2_1', source: '4', target: '1' },
-    { id: 'elb_4-ec2_2', source: '4', target: '2' },
-    { id: 'elb_4-ec2_3', source: '4', target: '3' },
+    { id: '2-3', source: '2', target: '3' },
+    { id: '2-4', source: '2', target: '4' },
 ];
 
 
@@ -79,7 +108,14 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             const nodes = get().nodes;
 
             const newNodeId = (nodes.length + 1).toString();
-            const newNode = {id : newNodeId, type: key, position: { x: 50, y: 50 }, data: { label: key }};
+            const newNode = {
+                id: newNodeId,
+                data: { label: key },
+                position: { x: 50, y: 50 },
+                type: key,
+
+                ...(key in Groups && groupProperties)
+            };
             set({
                 nodes: [...nodes, newNode]
             })
