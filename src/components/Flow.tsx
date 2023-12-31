@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -23,6 +23,11 @@ export default function Flow() {
       onInit: state.onInit,
     })
   );
+
+  // TODO - update the hash when the nodes change.
+  useEffect(() => {
+    console.log(window.location.href)
+  }, [])
 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
