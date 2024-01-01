@@ -37,7 +37,8 @@ type RFState = {
     onInit: OnInit,
     addNode: (key: string) => void,
     updateStateLoadedFromUrl: () => void,
-    saveToUrl: () => void
+    saveToUrl: () => void,
+    deleteNode: (id: Node['id']) => void,
 }
 
 
@@ -146,7 +147,11 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
 
             const state = getState().rfInstance!.toObject();
             window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
-        }, 250)
+        }, 250),
+        deleteNode: (id: Node['id']) => {
+            const rfInstance = getState().rfInstance!;
+            rfInstance.deleteElements({nodes: [{ id }]})
+        }
     }),
     shallow,
 );
