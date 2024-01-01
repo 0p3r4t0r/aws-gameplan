@@ -16,10 +16,10 @@ import {
     ReactFlowInstance,
     OnInit,
     NodeTypes,
-    ReactFlowJsonObject,
 } from 'reactflow';
 import queryString from 'query-string'
 import { shallow } from 'zustand/shallow';
+import { debounce } from 'lodash';
 
 import { nodeTypes } from './nodeTypes';
 import { Groups } from '../__generated__/groups';
@@ -37,6 +37,7 @@ type RFState = {
     onInit: OnInit,
     addNode: (key: string) => void,
     updateStateLoadedFromUrl: () => void,
+    saveToUrl: () => void
 }
 
 
@@ -47,7 +48,10 @@ const groupProperties: Partial<Node> = {
     zIndex: -10,
 }
 
-
+/**
+ * Nodes removes as initial nodes are now loaded from url.
+ * Comment preserved as an example.
+ */
 const initialNodes: RFState['nodes'] = [
     // {
     //     id: '1',
@@ -77,50 +81,46 @@ const initialNodes: RFState['nodes'] = [
     // },
 ];
 
+/**
+ * Edges removes as initial edges are now loaded from url.
+ * Comment preserved as an example.
+ */
 const initialEdges: RFState['edges'] = [
-    // { id: '2-3', source: '2', target: '3' },
-    // { id: '2-4', source: '2', target: '4' },
+    // { id: '2-3', source: '2', targetState: '3' },
+    // { id: '2-4', source: '2', targetState: '4' },
 ];
 
-
 export const useGamePlanStore = createWithEqualityFn<RFState>(
-    (set, get) => ({
+    (setState, getState) => ({
         nodes: initialNodes,
         edges: initialEdges,
         rfInstance: null,
         stateLoadedFromUrl: false,
         nodeTypes,
         onNodesChange: (changes: NodeChange[]) => {
-            set({
-                nodes: applyNodeChanges(changes, get().nodes),
+            setState({
+                nodes: applyNodeChanges(changes, getState().nodes),
             });
-            if (get().stateLoadedFromUrl) {
-                // TODO: make this a function, add debounce
-                const state = get().rfInstance?.toObject();
-                window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
-            }
+            getState().saveToUrl()
         },
         onEdgesChange: (changes: EdgeChange[]) => {
-            set({
-                edges: applyEdgeChanges(changes, get().edges),
+            setState({
+                edges: applyEdgeChanges(changes, getState().edges),
             });
-            if (get().stateLoadedFromUrl) {
-                // TODO: make this a function, add debounce
-                const state = get().rfInstance?.toObject();
-                window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
-            }
+            getState().saveToUrl()
         },
         onConnect: (connection: Connection) => {
-            set({
-                edges: addEdge(connection, get().edges),
+            setState({
+                edges: addEdge(connection, getState().edges),
             });
+            getState().saveToUrl()
         },
         onInit: (rfInstance) => {
-            set({ rfInstance })
+            setState({ rfInstance })
         },
         addNode: (key) => {
             console.log(key);
-            const nodes = get().nodes;
+            const nodes = getState().nodes;
 
             const newNodeId = (nodes.length + 1).toString();
             const newNode: Node = {
@@ -131,7 +131,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
 
                 ...(key in Groups && groupProperties)
             };
-            set({
+            setState({
                 nodes: [...nodes, newNode]
             })
         },
@@ -139,8 +139,14 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
          * You can only load the state from the URL once.
          */
         updateStateLoadedFromUrl: () => {
-            set({ stateLoadedFromUrl: true });
+            setState({ stateLoadedFromUrl: true });
         },
+        saveToUrl: debounce(() => {
+            if (!getState().stateLoadedFromUrl) return;
+
+            const state = getState().rfInstance!.toObject();
+            window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
+        }, 250)
     }),
     shallow,
 );
