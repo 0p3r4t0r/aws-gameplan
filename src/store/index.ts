@@ -120,7 +120,6 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             setState({ rfInstance })
         },
         addNode: (key) => {
-            console.log(key);
             const nodes = getState().nodes;
 
             const newNodeId = (nodes.length + 1).toString();
