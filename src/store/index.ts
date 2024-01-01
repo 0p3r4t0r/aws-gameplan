@@ -16,7 +16,9 @@ import {
     ReactFlowInstance,
     OnInit,
     NodeTypes,
+    ReactFlowJsonObject,
 } from 'reactflow';
+import queryString from 'query-string'
 import { shallow } from 'zustand/shallow';
 
 import { nodeTypes } from './nodeTypes';
@@ -28,11 +30,13 @@ type RFState = {
     edges: Edge[],
     nodeTypes: NodeTypes,
     rfInstance: ReactFlowInstance | null,
+    stateLoadedFromUrl: boolean,
     onNodesChange: OnNodesChange,
     onEdgesChange: OnEdgesChange,
     onConnect: OnConnect,
     onInit: OnInit,
     addNode: (key: string) => void,
+    updateStateLoadedFromUrl: () => void,
 }
 
 
@@ -84,16 +88,27 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
         nodes: initialNodes,
         edges: initialEdges,
         rfInstance: null,
+        stateLoadedFromUrl: false,
         nodeTypes,
         onNodesChange: (changes: NodeChange[]) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes),
             });
+            if (get().stateLoadedFromUrl) {
+                // TODO: make this a function, add debounce
+                const state = get().rfInstance?.toObject();
+                window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
+            }
         },
         onEdgesChange: (changes: EdgeChange[]) => {
             set({
                 edges: applyEdgeChanges(changes, get().edges),
             });
+            if (get().stateLoadedFromUrl) {
+                // TODO: make this a function, add debounce
+                const state = get().rfInstance?.toObject();
+                window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
+            }
         },
         onConnect: (connection: Connection) => {
             set({
@@ -119,7 +134,13 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             set({
                 nodes: [...nodes, newNode]
             })
-        }
+        },
+        /**
+         * You can only load the state from the URL once.
+         */
+        updateStateLoadedFromUrl: () => {
+            set({ stateLoadedFromUrl: true });
+        },
     }),
     shallow,
 );
