@@ -46,7 +46,7 @@ type RFState = {
 const groupProperties: Partial<Node> = {
     dragHandle: ".group-drag-handle",
     selectable: false,
-    zIndex: -10,
+    style: {width: 360, height: 360},
 }
 
 /**
