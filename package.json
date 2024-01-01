@@ -1,29 +1,50 @@
 {
-  "engines": {
-    "node": ">=20.10.0"
-  },
-  "scripts": {
-    "start": "node ./build.mjs",
-    "dev": "node ./build-dev.mjs",
-    "deploy": "git subtree push --prefix public origin gh-pages",
-    "deploy:recreate": "git push origin -d gh-pages; npm run deploy",
-    "generate": "bash ./src/generators/generate.sh"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.202",
-    "@types/node": "^20.10.5",
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "esbuild": "0.19.9",
-    "prettier": "^3.1.1",
-    "query-string": "^8.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "reactflow": "^11.10.1",
-    "typescript": "^5.3.3",
-    "zustand": "^4.4.7"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21"
-  }
+    "engines": {
+        "node": ">=20.10.0"
+    },
+    "scripts": {
+        "start": "node ./build.mjs",
+        "dev": "node ./build-dev.mjs",
+        "deploy": "git subtree push --prefix public origin gh-pages",
+        "deploy:recreate": "git push origin -d gh-pages; npm run deploy",
+        "generate": "bash ./src/generators/generate.sh",
+        "lint": "eslint . --fix --max-warnings=0",
+        "format": "prettier --write .",
+        "husky:init": "husky install; npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run pre-commit"
+        }
+    },
+    "lint-staged": {
+        "**/*.{ts,tsx,json}": [
+            "eslint . --fix",
+            "prettier --write ."
+        ]
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.202",
+        "@types/node": "^20.10.5",
+        "@types/react": "^18.2.45",
+        "@types/react-dom": "^18.2.18",
+        "@typescript-eslint/eslint-plugin": "6.17.0",
+        "@typescript-eslint/parser": "6.17.0",
+        "esbuild": "0.19.9",
+        "eslint": "8.56.0",
+        "eslint-config-prettier": "9.1.0",
+        "eslint-plugin-react": "7.33.2",
+        "husky": "8.0.3",
+        "lint-staged": "15.2.0",
+        "prettier": "3.1.1",
+        "query-string": "^8.1.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "reactflow": "^11.10.1",
+        "typescript": "^5.3.3",
+        "zustand": "^4.4.7"
+    },
+    "dependencies": {
+        "lodash": "^4.17.21"
+    }
 }

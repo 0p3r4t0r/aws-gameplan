@@ -10,4 +10,7 @@ node generators/generateServices.js;
 echo -e '\nFormatting...';
 npx prettier './__generated__/**/*.tsx' --write --print-width 1000;
 
+echo 'Cleaning up...';
+rm generators/generateGroups.js generators/generateServices.js;
+
 cd --
