@@ -1,16 +1,16 @@
-import * as esbuild from 'esbuild';
-import * as fs from 'fs';
+import * as esbuild from 'esbuild'
+import * as fs from 'fs'
 
-const PATH = 'public-dev';
+const PATH = 'public-dev'
 
-console.log('Building dev...');
+console.log('Building dev...')
 
 // Clean
-fs.rmSync(PATH, { recursive: true, force: true });
-fs.mkdirSync(PATH);
+fs.rmSync(PATH, { recursive: true, force: true })
+fs.mkdirSync(PATH)
 
 // Copy index.html
-fs.copyFileSync('src/index.html', `${PATH}/index.html`);
+fs.copyFileSync('src/index.html', `${PATH}/index.html`)
 
 const context = await esbuild.context({
     bundle: true,
@@ -19,11 +19,14 @@ const context = await esbuild.context({
     platform: 'browser',
     sourcemap: true,
     loader: { '.svg': 'dataurl' },
-});
+})
 
 await context.watch()
 
-await context.serve({
-    servedir: PATH,
-})
-.then((serveResult) => { console.log(serveResult); });
+await context
+    .serve({
+        servedir: PATH,
+    })
+    .then((serveResult) => {
+        console.log(serveResult)
+    })

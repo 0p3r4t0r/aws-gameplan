@@ -1,6 +1,6 @@
 // https://reactflow.dev/learn/advanced-use/state-management
 
-import { createWithEqualityFn } from 'zustand/traditional';
+import { createWithEqualityFn } from 'zustand/traditional'
 import {
     Connection,
     Edge,
@@ -16,37 +16,35 @@ import {
     ReactFlowInstance,
     OnInit,
     NodeTypes,
-} from 'reactflow';
+} from 'reactflow'
 import queryString from 'query-string'
-import { shallow } from 'zustand/shallow';
-import { debounce } from 'lodash';
+import { shallow } from 'zustand/shallow'
+import { debounce } from 'lodash'
 
-import { nodeTypes } from './nodeTypes';
-import { Groups } from '../__generated__/groups';
-
+import { nodeTypes } from './nodeTypes'
+import { Groups } from '../__generated__/groups'
 
 type RFState = {
-    nodes: Node[],
-    edges: Edge[],
-    nodeTypes: NodeTypes,
-    rfInstance: ReactFlowInstance | null,
-    stateLoadedFromUrl: boolean,
-    onNodesChange: OnNodesChange,
-    onEdgesChange: OnEdgesChange,
-    onConnect: OnConnect,
-    onInit: OnInit,
-    addNode: (key: string) => void,
-    updateStateLoadedFromUrl: () => void,
-    saveToUrl: () => void,
-    deleteNode: (id: Node['id']) => void,
+    nodes: Node[]
+    edges: Edge[]
+    nodeTypes: NodeTypes
+    rfInstance: ReactFlowInstance | null
+    stateLoadedFromUrl: boolean
+    onNodesChange: OnNodesChange
+    onEdgesChange: OnEdgesChange
+    onConnect: OnConnect
+    onInit: OnInit
+    addNode: (key: string) => void
+    updateStateLoadedFromUrl: () => void
+    saveToUrl: () => void
+    deleteNode: (id: Node['id']) => void
 }
-
 
 // Ensure that services inside a group can be clicked.
 const groupProperties: Partial<Node> = {
-    dragHandle: ".group-drag-handle",
+    dragHandle: '.group-drag-handle',
     selectable: false,
-    style: {width: 360, height: 360},
+    style: { width: 360, height: 360 },
 }
 
 /**
@@ -80,7 +78,7 @@ const initialNodes: RFState['nodes'] = [
     //     position: { x: 330, y: 300 },
     //     type: 'AmazonEC2',
     // },
-];
+]
 
 /**
  * Edges removes as initial edges are now loaded from url.
@@ -89,7 +87,7 @@ const initialNodes: RFState['nodes'] = [
 const initialEdges: RFState['edges'] = [
     // { id: '2-3', source: '2', targetState: '3' },
     // { id: '2-4', source: '2', targetState: '4' },
-];
+]
 
 export const useGamePlanStore = createWithEqualityFn<RFState>(
     (setState, getState) => ({
@@ -101,56 +99,58 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
         onNodesChange: (changes: NodeChange[]) => {
             setState({
                 nodes: applyNodeChanges(changes, getState().nodes),
-            });
+            })
             getState().saveToUrl()
         },
         onEdgesChange: (changes: EdgeChange[]) => {
             setState({
                 edges: applyEdgeChanges(changes, getState().edges),
-            });
+            })
             getState().saveToUrl()
         },
         onConnect: (connection: Connection) => {
             setState({
                 edges: addEdge(connection, getState().edges),
-            });
+            })
             getState().saveToUrl()
         },
         onInit: (rfInstance) => {
             setState({ rfInstance })
         },
         addNode: (key) => {
-            const nodes = getState().nodes;
+            const nodes = getState().nodes
 
-            const newNodeId = (nodes.length + 1).toString();
+            const newNodeId = (nodes.length + 1).toString()
             const newNode: Node = {
                 id: newNodeId,
                 data: { label: key },
                 position: { x: 50, y: 50 },
                 type: key,
 
-                ...(key in Groups && groupProperties)
-            };
+                ...(key in Groups && groupProperties),
+            }
             setState({
-                nodes: [...nodes, newNode]
+                nodes: [...nodes, newNode],
             })
         },
         /**
          * You can only load the state from the URL once.
          */
         updateStateLoadedFromUrl: () => {
-            setState({ stateLoadedFromUrl: true });
+            setState({ stateLoadedFromUrl: true })
         },
         saveToUrl: debounce(() => {
-            if (!getState().stateLoadedFromUrl) return;
+            if (!getState().stateLoadedFromUrl) return
 
-            const state = getState().rfInstance!.toObject();
-            window.location.hash = queryString.stringify({ state: JSON.stringify(state) })
+            const state = getState().rfInstance!.toObject()
+            window.location.hash = queryString.stringify({
+                state: JSON.stringify(state),
+            })
         }, 250),
         deleteNode: (id: Node['id']) => {
-            const rfInstance = getState().rfInstance!;
-            rfInstance.deleteElements({nodes: [{ id }]})
-        }
+            const rfInstance = getState().rfInstance!
+            rfInstance.deleteElements({ nodes: [{ id }] })
+        },
     }),
-    shallow,
-);
+    shallow
+)

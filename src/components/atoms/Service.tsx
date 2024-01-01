@@ -1,9 +1,9 @@
-import React from 'react';
-import { Handle, Position } from 'reactflow';
+import React from 'react'
+import { Handle, Position } from 'reactflow'
 
 type ServiceNodeProps = {
-    data: string;
-    title: string;
+    data: string
+    title: string
 }
 
 export const ServiceNode = ({ data, title }: ServiceNodeProps) => {
