@@ -13,10 +13,19 @@ A visual diagram tool for AWS with support for terraform output.
 - [ ] Housekeeping
     - [ ] Formatting (Husky)
     - [x] Fix small scroll
+- [ ] Better CSS
+- [ ] Docs
+  - [ ] Mermaid
+  - [ ] Gif showing features
+<!--Completes MVP-->
 - [ ] PWA (mobile friendly)
 - [ ] Supabase setup.
     - [ ] Optional login and save
-- [ ] Attempt to generate Terraform
+    - [ ] Undo & redo buttons with history saved
+- [ ] Self-host
+    - [ ] GraphQL & REST API via Docker.
+    - [ ] AWS architecture diagram to host.
+    - [ ] Terraform to create infrastructure on AWS.
 
 
 ## Thoughts
