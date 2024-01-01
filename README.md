@@ -6,9 +6,10 @@ A visual diagram tool for AWS with support for terraform output.
 ## TODO
 - [x] Saving and reloading flows.
     - [x] Query params
-- [ ] Bugfixes
-    - [ ] Can't delete node if it's not selectable
-        - `onDragStart -> select node, onDragEnd -> de-select node??`
+- [x] Bugfixes
+    - [x] Can't delete node if it's not selectable
+        - ~~`onDragStart -> select node, onDragEnd -> de-select node??`~~
+        - Just add a delete button
 - [ ] Housekeeping
     - [ ] Formatting (Husky)
     - [x] Fix small scroll
