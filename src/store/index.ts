@@ -37,7 +37,6 @@ type RFState = {
     addNode: (key: string) => void
     updateStateLoadedFromUrl: () => void
     saveToUrl: () => void
-    deleteNode: (id: Node['id']) => void
 }
 
 // Ensure that services inside a group can be clicked.
@@ -146,10 +145,6 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
                 state: JSON.stringify(state),
             })
         }, 250),
-        deleteNode: (id: Node['id']) => {
-            const rfInstance = getState().rfInstance!
-            rfInstance.deleteElements({ nodes: [{ id }] })
-        },
     }),
     shallow
 )

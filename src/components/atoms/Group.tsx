@@ -1,6 +1,5 @@
 import React from 'react'
-import { NodeResizer, useNodeId } from 'reactflow'
-import { useGamePlanStore } from '../../store'
+import { NodeResizer } from 'reactflow'
 
 type GroupNodeProps = {
     data: string
@@ -10,9 +9,6 @@ type GroupNodeProps = {
 // https://reactflow.dev/learn/layouting/sub-flows
 // https://reactflow.dev/examples/nodes/resize-rotate
 export const GroupNode = ({ data, title }: GroupNodeProps) => {
-    const deleteNode = useGamePlanStore((state) => state.deleteNode)
-    const nodeId = useNodeId()!
-
     return (
         <>
             <img
@@ -23,14 +19,6 @@ export const GroupNode = ({ data, title }: GroupNodeProps) => {
                 width="32"
                 height="32"
             />
-            <div className="group-delete-wrapper">
-                <button
-                    className="group-delete"
-                    onClick={() => deleteNode(nodeId)}
-                >
-                    x
-                </button>
-            </div>
             <NodeResizer minHeight={32} minWidth={32} />
         </>
     )
