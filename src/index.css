@@ -1,31 +1,11 @@
-/* groups */
-.group-drag-handle {
-    pointer-events: all;
-}
-
-.group-delete-wrapper {
-    align-items: center;
-    display: flex;
-    height: 32;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 32;
-}
-
-button.group-delete {
-    background: #eeeeee;
-    border-radius: 50%;
-    border: solid #cccccc 1px;
-    height: 25;
-    pointer-events: all;
-    width: 25;
-}
-
 /*
- * 
+ * Allows dragging and resizing of groups without interfering
+ * when they overlap. 
 */
 .react-flow__resize-control {
     pointer-events: all;
+}
+
+.group-drag-handle {
+    pointer-events: auto;
 }
