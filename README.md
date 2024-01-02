@@ -13,7 +13,7 @@ A visual diagram tool for AWS with support for terraform output.
 -   [x] Housekeeping
     -   [x] Formatting (Husky)
     -   [x] Fix small scroll
--   [ ] Better CSS
+-   [x] Better CSS
 -   [ ] Docs
     -   [ ] Mermaid
     -   [ ] Gif showing features
