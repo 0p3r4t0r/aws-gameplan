@@ -36,7 +36,7 @@ flowchart TD
     -   [x] Mermaid
     -   [ ] Gif showing features (not yet)
 -   [ ] favicon
-  <!--Completes MVP-->
+<!--Completes MVP-->
 -   [ ] PWA (mobile friendly)
 -   [ ] Supabase setup.
     -   [ ] Optional login and save
