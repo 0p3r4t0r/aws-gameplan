@@ -22,6 +22,7 @@ export const GroupNode = ({ data, title }: GroupNodeProps) => {
                 title={title}
                 width="32"
                 height="32"
+                style={{ pointerEvents: 'all' }}
             />
             <div
                 style={{
@@ -43,6 +44,7 @@ export const GroupNode = ({ data, title }: GroupNodeProps) => {
                         height: 25,
                         border: 'solid #cccccc 1px',
                         borderRadius: '50%',
+                        pointerEvents: 'all',
                     }}
                 >
                     x

@@ -9,8 +9,9 @@ console.log('Building dev...')
 fs.rmSync(PATH, { recursive: true, force: true })
 fs.mkdirSync(PATH)
 
-// Copy index.html
+// Copy files
 fs.copyFileSync('src/index.html', `${PATH}/index.html`)
+fs.copyFileSync('src/index.css', `${PATH}/index.css`)
 
 const context = await esbuild.context({
     bundle: true,
