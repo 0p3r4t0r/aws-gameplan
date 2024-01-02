@@ -12,6 +12,7 @@ fs.mkdirSync(PATH)
 // Copy files
 fs.copyFileSync('src/index.html', `${PATH}/index.html`)
 fs.copyFileSync('src/index.css', `${PATH}/index.css`)
+fs.copyFileSync('src/assets/logo.svg', `${PATH}/logo.svg`)
 
 const options = {
     bundle: true,
