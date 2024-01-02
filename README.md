@@ -19,6 +19,8 @@ flowchart TD
 
 ## TODO
 
+### TODO (MVP)
+
 -   [x] Saving and reloading flows.
     -   [x] Query params
 -   [x] Bugfixes
@@ -36,7 +38,9 @@ flowchart TD
     -   [x] Mermaid
     -   [ ] Gif showing features (not yet)
 -   [x] favicon
-<!--Completes MVP-->
+
+
+### TODO (easy to use)
 -   [ ] PWA (mobile friendly)
 -   [ ] Supabase setup.
     -   [ ] Optional login and save
@@ -46,5 +50,3 @@ flowchart TD
     -   [ ] GraphQL & REST API via Docker.
     -   [ ] AWS architecture diagram to host.
     -   [ ] Terraform to create infrastructure on AWS.
-
-## Thoughts
