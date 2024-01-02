@@ -26,16 +26,16 @@ flowchart TD
         -   ~~`onDragStart -> select node, onDragEnd -> de-select node??`~~
         -   Just add a delete button
     -   [x] Overlapping groups
--   [ ] Housekeeping
+-   [x] Housekeeping
     -   [x] Formatting (Husky)
     -   [x] Fix small scroll
-    -   [ ] Move all css to index.css
-    -   [ ] Esbuild hot-reload of index.css
+    -   [ ] ~~Move all css to index.css~~
+    -   [ ] Esbuild hot-reload of index.css (someday)
 -   [x] Better CSS
--   [ ] Docs
+-   [x] Docs
     -   [x] Mermaid
     -   [ ] Gif showing features (not yet)
--   [ ] favicon
+-   [x] favicon
 <!--Completes MVP-->
 -   [ ] PWA (mobile friendly)
 -   [ ] Supabase setup.
