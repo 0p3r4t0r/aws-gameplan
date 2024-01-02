@@ -23,12 +23,31 @@ export const GroupNode = ({ data, title }: GroupNodeProps) => {
                 width="32"
                 height="32"
             />
-            <button
-                onClick={() => deleteNode(nodeId)}
-                style={{ position: 'absolute', top: 0, right: 0 }}
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: 32,
+                    height: 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
             >
-                x
-            </button>
+                <button
+                    onClick={() => deleteNode(nodeId)}
+                    style={{
+                        background: '#eeeeee',
+                        width: 25,
+                        height: 25,
+                        border: 'solid #cccccc 1px',
+                        borderRadius: '50%',
+                    }}
+                >
+                    x
+                </button>
+            </div>
             <NodeResizer minHeight={32} minWidth={32} />
         </>
     )
