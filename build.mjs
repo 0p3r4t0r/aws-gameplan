@@ -9,8 +9,9 @@ console.log('Building...')
 fs.rmSync(PATH, { recursive: true, force: true })
 fs.mkdirSync(PATH)
 
-// Copy index.html
+// Copy files
 fs.copyFileSync('src/index.html', `${PATH}/index.html`)
+fs.copyFileSync('src/index.css', `${PATH}/index.css`)
 
 const options = {
     bundle: true,

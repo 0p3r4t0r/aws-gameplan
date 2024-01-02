@@ -2,13 +2,11 @@
 
 A free and simple diagramming tool for AWS that doesn't suck.
 
-
 ## Getting started
 
- 1. `npm run husky init`
- 2. `npm run generate`
- 3. `npm start`
-
+1.  `npm run husky init`
+2.  `npm run generate`
+3.  `npm start`
 
 ## Architecture
 
@@ -19,30 +17,31 @@ flowchart TD
     B --> |generators| C(React Components)
 ```
 
-
 ## TODO
 
 -   [x] Saving and reloading flows.
     -   [x] Query params
--   [ ] Bugfixes
+-   [x] Bugfixes
     -   [x] Can't delete node if it's not selectable
         -   ~~`onDragStart -> select node, onDragEnd -> de-select node??`~~
         -   Just add a delete button
-    - [ ] Overlapping groups 
--   [x] Housekeeping
+    -   [x] Overlapping groups
+-   [ ] Housekeeping
     -   [x] Formatting (Husky)
     -   [x] Fix small scroll
+    -   [ ] Move all css to index.css
+    -   [ ] Esbuild hot-reload of index.css
 -   [x] Better CSS
 -   [ ] Docs
     -   [x] Mermaid
     -   [ ] Gif showing features (not yet)
-- [ ] favicon
-    <!--Completes MVP-->
+-   [ ] favicon
+  <!--Completes MVP-->
 -   [ ] PWA (mobile friendly)
 -   [ ] Supabase setup.
     -   [ ] Optional login and save
     -   [ ] Undo & redo buttons with history saved
-- [ ] Walkthrough
+-   [ ] Walkthrough
 -   [ ] Self-host
     -   [ ] GraphQL & REST API via Docker.
     -   [ ] AWS architecture diagram to host.
