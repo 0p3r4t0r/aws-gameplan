@@ -22,30 +22,11 @@ export const GroupNode = ({ data, title }: GroupNodeProps) => {
                 title={title}
                 width="32"
                 height="32"
-                style={{ pointerEvents: 'all' }}
             />
-            <div
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: 32,
-                    height: 32,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
+            <div className="group-delete-wrapper">
                 <button
+                    className="group-delete"
                     onClick={() => deleteNode(nodeId)}
-                    style={{
-                        background: '#eeeeee',
-                        width: 25,
-                        height: 25,
-                        border: 'solid #cccccc 1px',
-                        borderRadius: '50%',
-                        pointerEvents: 'all',
-                    }}
                 >
                     x
                 </button>
