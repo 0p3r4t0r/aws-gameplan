@@ -12,6 +12,7 @@ import 'reactflow/dist/style.css'
 import { ComponentSelector } from './molecules/ComponentSelector'
 import { nodeTypes } from '../store/nodeTypes'
 import { useGamePlanStore } from '../store'
+import Auth from './Auth'
 
 export default function Flow() {
     const {
@@ -38,7 +39,9 @@ export default function Flow() {
 
     useEffect(() => {
         if (rfInstance && !stateLoadedFromUrl) {
-            if (location.hash) {
+            // check for #state to prevent conflicts with supabase auth
+            if (location.hash && location.hash.startsWith('#state')) {
+                // Load state from URL
                 const stateObject = queryString.parse(location.hash)
                 const state = JSON.parse(
                     stateObject.state as string
@@ -62,6 +65,7 @@ export default function Flow() {
                 nodeTypes={nodeTypes}
                 onInit={onInit}
             >
+                <Auth />
                 <ComponentSelector />
                 <Controls />
                 <MiniMap />

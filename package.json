@@ -10,7 +10,8 @@
         "generate": "bash ./src/generators/generate.sh",
         "lint": "eslint . --fix --max-warnings=0",
         "format": "prettier --write .",
-        "husky:init": "husky install; npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
+        "husky:init": "husky install; npx husky add .husky/pre-commit \"npx --no-install lint-staged\"",
+        "supabase:generate": "npx supabase gen types typescript --project-id sevkfiwgfmvhzporafnm > src/__generated__/database.types.ts"
     },
     "husky": {
         "hooks": {
@@ -45,6 +46,7 @@
         "zustand": "^4.4.7"
     },
     "dependencies": {
+        "@supabase/supabase-js": "^2.39.2",
         "lodash": "^4.17.21"
     }
 }

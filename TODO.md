@@ -20,8 +20,8 @@
     -   [ ] Gif showing features (not yet)
 -   [x] favicon
 
-
 ## TODO (easy to use)
+
 -   [ ] PWA (mobile friendly)
 -   [ ] Supabase setup.
     -   [ ] Optional login and save

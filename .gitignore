@@ -2,5 +2,6 @@ node_modules/
 
 public-dev/
 
-__generated__/
-src/generators/*.js
+src/__generated__/*
+# Supabase types cannot be generated without login
+!src/__generated__/database.types.ts
