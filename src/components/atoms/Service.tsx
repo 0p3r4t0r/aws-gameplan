@@ -6,12 +6,10 @@ type ServiceNodeProps = {
     title: string
 }
 
-export const ServiceNode = ({ data, title }: ServiceNodeProps) => {
-    return (
-        <>
-            <Handle type="target" position={Position.Top} />
-            <img alt={title} src={data} title={title} width="64" height="64" />
-            <Handle type="source" position={Position.Bottom} />
-        </>
-    )
-}
+export const ServiceNode = ({ data, title }: ServiceNodeProps) => (
+    <>
+        <Handle type="target" position={Position.Top} />
+        <img alt={title} src={data} title={title} width="64" height="64" />
+        <Handle type="source" position={Position.Bottom} />
+    </>
+)

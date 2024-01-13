@@ -23,6 +23,8 @@ import { debounce } from 'lodash'
 
 import { nodeTypes } from './nodeTypes'
 import { Groups } from '../__generated__/groups'
+import { Session } from '@supabase/supabase-js'
+import { supabase } from '../supabaseClient'
 
 type RFState = {
     nodes: Node[]
@@ -30,6 +32,7 @@ type RFState = {
     nodeTypes: NodeTypes
     rfInstance: ReactFlowInstance | null
     stateLoadedFromUrl: boolean
+    session: Session | null
     onNodesChange: OnNodesChange
     onEdgesChange: OnEdgesChange
     onConnect: OnConnect
@@ -94,6 +97,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
         rfInstance: null,
         stateLoadedFromUrl: false,
         nodeTypes,
+        session: null,
         onNodesChange: (changes: NodeChange[]) => {
             setState({
                 nodes: applyNodeChanges(changes, getState().nodes),
@@ -112,8 +116,12 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             })
             getState().saveToUrl()
         },
-        onInit: (rfInstance) => {
-            setState({ rfInstance })
+        onInit: async (rfInstance) => {
+            const { data } = await supabase.auth.getSession()
+            supabase.auth.onAuthStateChange((event, session) => {
+                setState({ session })
+            })
+            setState({ rfInstance, session: data?.session })
         },
         addNode: (key) => {
             const nodes = getState().nodes

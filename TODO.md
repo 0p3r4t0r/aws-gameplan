@@ -23,9 +23,10 @@
 ## TODO (easy to use)
 
 -   [ ] PWA (mobile friendly)
+-   [ ] undo and redo functionality
 -   [ ] Supabase setup.
-    -   [ ] Optional login and save
-    -   [ ] Undo & redo buttons with history saved
+    -   [x] Optional login and save
+    -   [ ] better ui
 -   [ ] Walkthrough
 -   [ ] Self-host
     -   [ ] Static website (with password?)
@@ -33,4 +34,5 @@
     -   [ ] Terraform to create infrastructure on AWS.
     -   [ ] Terraform for gcp architecture.
 -   [x] Nicer README
+-   [ ] Detailed docs
 -   [ ] Husky hooks behaving weirdly?

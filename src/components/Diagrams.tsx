@@ -1,63 +1,84 @@
 import React, { FormEventHandler, useEffect, useState } from 'react'
 import { supabase } from '../supabaseClient'
-import { Session } from '@supabase/supabase-js'
 import { Database } from '../__generated__/database.types'
 import queryString from 'query-string'
 import { ReactFlowJsonObject } from 'reactflow'
 import { useGamePlanStore } from '../store'
+import { GamePlanIcons } from '../__generated__/icons'
+import { User } from '@supabase/supabase-js'
 
 type Diagram = Database['public']['Tables']['diagrams']['Row']
 type FormData = {
     name: string
 }
+type DiagramsProps = {
+    user: User
+}
 
-export const Diagrams = () => {
-    const [loading, setLoading] = useState(true)
-    const [session, setSession] = useState<Session | null>(null)
+export const Diagrams = ({ user }: DiagramsProps) => {
+    const [loading, setLoading] = useState(false)
     const [diagrams, setDiagrams] = useState<Diagram[]>([])
     const [formData, setFormState] = useState<FormData>({ name: '' })
     const rfInstance = useGamePlanStore((state) => state.rfInstance)
 
     useEffect(() => {
-        supabase.auth.getSession().then(({ data }) => {
-            setSession(data?.session)
-        })
-
-        supabase.auth.onAuthStateChange(async (event, session) => {
-            setSession(session)
-        })
-    }, [])
-
-    useEffect(() => {
-        if (session && session.user) {
+        if (user) {
             supabase
                 .from('diagrams')
-                .select('*')
-                .eq('user_id', session.user.id)
+                .select()
+                .eq('user_id', user.id)
                 .then(({ data: diagrams, error }) => {
-                    console.log('error', error)
-                    console.log('diagrams', diagrams)
-                    setDiagrams(diagrams!)
-                    setLoading(false)
+                    if (error) {
+                        console.error(error)
+                    } else if (diagrams.length) {
+                        setDiagrams(diagrams)
+                    }
                 })
         }
-    }, [session])
+    }, [])
 
     const saveDiagram: FormEventHandler = async (e) => {
         e.preventDefault()
         setLoading(true)
-        console.log(session!.user!.id)
-        await supabase.from('diagrams').insert({
-            name: formData.name,
-            state: window.location.hash,
-            user_id: session!.user!.id,
-        })
+        const { data } = await supabase
+            .from('diagrams')
+            .insert({
+                name: formData.name,
+                state: window.location.hash,
+                user_id: user.id,
+            })
+            .select()
+        if (data) {
+            setDiagrams([...diagrams, data[0]])
+        }
+        setLoading(false)
+    }
+
+    const updateDiagram = async (diagram: Diagram) => {
+        setLoading(true)
+        console.log(user.id)
+        const { status } = await supabase
+            .from('diagrams')
+            .upsert({
+                id: diagram.id,
+                name: diagram.name,
+                state: window.location.hash,
+                user_id: user.id,
+            })
+            .single()
+        if (status === 200) {
+            setDiagrams(
+                diagrams.map((d) =>
+                    d.id === diagram.id
+                        ? { ...diagram, state: window.location.hash }
+                        : d
+                )
+            )
+        }
         setLoading(false)
     }
 
     const loadDiagram = (diagram: Diagram) => {
-        console.log('load diagram', diagram)
-        // TODO: refactor into store
         if (rfInstance) {
             const stateObject = queryString.parse(diagram.state)
             const state = JSON.parse(
@@ -81,25 +102,8 @@ export const Diagrams = () => {
             })
     }
 
-    if (!session) return null
-
     return (
         <div>
-            <ul>
-                {diagrams.map((diagram) => (
-                    <li key={diagram.name}>
-                        <span
-                            onClick={() => loadDiagram(diagram)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            {diagram.name}{' '}
-                        </span>
-                        <button onClick={() => deleteDiagram(diagram)}>
-                            delete
-                        </button>
-                    </li>
-                ))}
-            </ul>
             <form className="form-widget" onSubmit={saveDiagram}>
                 <div>
                     <input
@@ -117,6 +121,35 @@ export const Diagrams = () => {
                     </button>
                 </div>
             </form>
+            <ul>
+                {diagrams.map((diagram) => (
+                    <li key={diagram.name} style={{ display: 'flex', gap: 5 }}>
+                        <div
+                            onClick={() => loadDiagram(diagram)}
+                            style={{
+                                cursor: 'pointer',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            {diagram.name}{' '}
+                        </div>
+                        <div
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => updateDiagram(diagram)}
+                        >
+                            <GamePlanIcons.Save />
+                        </div>
+                        <div
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => deleteDiagram(diagram)}
+                        >
+                            <GamePlanIcons.Delete />
+                        </div>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }

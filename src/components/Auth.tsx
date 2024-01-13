@@ -1,7 +1,8 @@
-import React, { FormEventHandler, useEffect, useState } from 'react'
+import React, { FormEventHandler, useCallback, useState } from 'react'
 import { supabase } from '../supabaseClient'
-import { Session } from '@supabase/supabase-js'
 import { Diagrams } from './Diagrams'
+import { useGamePlanStore } from '../store'
+import { GamePlanIcons } from '../__generated__/icons'
 
 /**
  * TODO: refactor into components
@@ -11,17 +12,11 @@ export default function Auth() {
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [session, setSession] = useState<Session | null>(null)
+    const session = useGamePlanStore((state) => state.session)
 
-    useEffect(() => {
-        supabase.auth.getSession().then(({ data }) => {
-            setSession(data?.session)
-        })
-
-        supabase.auth.onAuthStateChange(async (event, session) => {
-            setSession(session)
-        })
-    }, [])
+    const toggle = useCallback(() => {
+        setIsSignUp(!isSignUp)
+    }, [isSignUp, setIsSignUp])
 
     const handleSignUp: FormEventHandler = async (event) => {
         event.preventDefault()
@@ -51,23 +46,21 @@ export default function Auth() {
         <div style={{ position: 'absolute', top: 10, left: 20, zIndex: 100 }}>
             {session ? (
                 <div>
-                    <p>User ID: {session.user.id}</p>
-                    <Diagrams />
-                    <button
-                        onClick={() => {
-                            supabase.auth.signOut()
-                        }}
-                    >
-                        Log out
-                    </button>
+                    <div>
+                        <GamePlanIcons.UserHeart />
+                        <span
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => supabase.auth.signOut()}
+                        >
+                            <GamePlanIcons.SignOut />
+                        </span>
+                    </div>
+                    <Diagrams user={session.user} />
                 </div>
             ) : (
                 <div className="row flex flex-center">
                     <div className="col-6 form-widget">
-                        <p className="description">
-                            (Optional) Sign in with your email or password
-                            below.
-                        </p>
+                        <span>{isSignUp ? 'Sign Up' : 'Sign In'}</span>
                         <form
                             className="form-widget"
                             onSubmit={isSignUp ? handleSignUp : handleSignIn}
@@ -105,15 +98,19 @@ export default function Auth() {
                                         <span>Go!</span>
                                     )}
                                 </button>
+                                &nbsp; or{' '}
+                                <span
+                                    style={{
+                                        cursor: 'pointer',
+                                        color: 'blue',
+                                        textDecoration: 'underline',
+                                    }}
+                                    onClick={toggle}
+                                >
+                                    {isSignUp ? 'Sign In' : 'Sign Up'}
+                                </span>
                             </div>
                         </form>
-                        <button
-                            onClick={() => {
-                                setIsSignUp(!isSignUp)
-                            }}
-                        >
-                            isSignUp: {isSignUp ? 'true' : 'false'}
-                        </button>
                     </div>
                 </div>
             )}
