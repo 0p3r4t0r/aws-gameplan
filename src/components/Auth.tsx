@@ -1,9 +1,10 @@
 import React, { FormEventHandler, useEffect, useState } from 'react'
 import { supabase } from '../supabaseClient'
 import { Session } from '@supabase/supabase-js'
+import { Diagrams } from './Diagrams'
 
 /**
- * TODO handle signin and signup
+ * TODO: refactor into components
  */
 export default function Auth() {
     const [isSignUp, setIsSignUp] = useState(true)
@@ -17,7 +18,7 @@ export default function Auth() {
             setSession(data?.session)
         })
 
-        supabase.auth.onAuthStateChange((event, session) => {
+        supabase.auth.onAuthStateChange(async (event, session) => {
             setSession(session)
         })
     }, [])
@@ -26,11 +27,10 @@ export default function Auth() {
         event.preventDefault()
         setLoading(true)
         const { error } = await supabase.auth.signUp({ email, password })
-        if (error) {
-            alert(error.message)
-        } else {
-            alert('Check your email for the login link!')
-        }
+
+        if (error) alert(error.message)
+        else alert('Check your email for the confirmation link!')
+
         setLoading(false)
     }
 
@@ -38,17 +38,12 @@ export default function Auth() {
         event.preventDefault()
 
         setLoading(true)
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
         })
 
-        if (error) {
-            alert(error.message)
-        } else {
-            setSession(data?.session)
-            alert('Welcome!')
-        }
+        if (error) alert(error.message)
         setLoading(false)
     }
 
@@ -57,6 +52,7 @@ export default function Auth() {
             {session ? (
                 <div>
                     <p>User ID: {session.user.id}</p>
+                    <Diagrams />
                     <button
                         onClick={() => {
                             supabase.auth.signOut()

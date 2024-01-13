@@ -122,7 +122,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             const newNode: Node = {
                 id: newNodeId,
                 data: { label: key },
-                position: { x: 50, y: 50 },
+                position: { x: 100, y: 200 },
                 type: key,
 
                 ...(key in Groups && groupProperties),
