@@ -33,3 +33,4 @@
     -   [ ] Terraform to create infrastructure on AWS.
     -   [ ] Terraform for gcp architecture.
 -   [x] Nicer README
+-   [ ] Husky hooks behaving weirdly?
