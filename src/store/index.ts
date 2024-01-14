@@ -16,6 +16,7 @@ import {
     ReactFlowInstance,
     OnInit,
     NodeTypes,
+    ReactFlowJsonObject,
 } from 'reactflow'
 import queryString from 'query-string'
 import { shallow } from 'zustand/shallow'
@@ -23,6 +24,8 @@ import { debounce } from 'lodash'
 
 import { nodeTypes } from './nodeTypes'
 import { Groups } from '../__generated__/groups'
+import { Session } from '@supabase/supabase-js'
+import { supabase } from '../supabaseClient'
 
 type RFState = {
     nodes: Node[]
@@ -30,11 +33,13 @@ type RFState = {
     nodeTypes: NodeTypes
     rfInstance: ReactFlowInstance | null
     stateLoadedFromUrl: boolean
+    session: Session | null
     onNodesChange: OnNodesChange
     onEdgesChange: OnEdgesChange
     onConnect: OnConnect
     onInit: OnInit
     addNode: (key: string) => void
+    loadStateFromUrlHash: (state: string) => void
     updateStateLoadedFromUrl: () => void
     saveToUrl: () => void
 }
@@ -94,6 +99,8 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
         rfInstance: null,
         stateLoadedFromUrl: false,
         nodeTypes,
+        session: null,
+        loading: true,
         onNodesChange: (changes: NodeChange[]) => {
             setState({
                 nodes: applyNodeChanges(changes, getState().nodes),
@@ -112,7 +119,15 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             })
             getState().saveToUrl()
         },
-        onInit: (rfInstance) => {
+        onInit: async (rfInstance) => {
+            supabase.auth.onAuthStateChange((event, session) => {
+                if (
+                    session?.access_token !== getState().session?.access_token
+                ) {
+                    setState({ session })
+                }
+            })
+            await supabase.auth.getSession()
             setState({ rfInstance })
         },
         addNode: (key) => {
@@ -122,7 +137,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             const newNode: Node = {
                 id: newNodeId,
                 data: { label: key },
-                position: { x: 50, y: 50 },
+                position: { x: 100, y: 200 },
                 type: key,
 
                 ...(key in Groups && groupProperties),
@@ -130,6 +145,18 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             setState({
                 nodes: [...nodes, newNode],
             })
+        },
+        loadStateFromUrlHash: (stateString) => {
+            const rfInstance = getState().rfInstance
+            if (rfInstance) {
+                const stateObject = queryString.parse(stateString)
+                const state = JSON.parse(
+                    stateObject.state as string
+                ) as ReactFlowJsonObject
+                rfInstance.setNodes(state.nodes)
+                rfInstance.setEdges(state.edges)
+                rfInstance.setViewport(state.viewport)
+            }
         },
         /**
          * You can only load the state from the URL once.

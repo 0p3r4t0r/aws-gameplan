@@ -1,5 +1,5 @@
 {
-    "cSpell.words": ["reactflow"],
+    "cSpell.words": ["reactflow", "supabase", "upsert", "zustand"],
     "workbench.colorCustomizations": {
         "activityBar.background": "#FF9900",
         "titleBar.activeBackground": "#FF9900",

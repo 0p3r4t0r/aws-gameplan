@@ -2,19 +2,16 @@
 
 A free and simple diagramming tool for AWS that doesn't suck.
 
-
 ## Getting started
 
 1.  `npm run husky init` -- setup git hooks
 2.  `npm run generate` -- generate code from aws icons
 3.  `npm start` -- start the local server
 
-
 ## Features
 
-- The state of each diagram is automatically saved in the url of the page.
-**Any diagram you make can be easily shared simply by copy-pasting the url.**
-
+-   The state of each diagram is automatically saved in the url of the page.
+    **Any diagram you make can be easily shared simply by copy-pasting the url.**
 
 ## Architecture
 
@@ -29,3 +26,9 @@ flowchart TD
     A(Download AWS Icons) -->|pipeline/awsIcons.sh| B(assets/awsIcons)
     B --> |generators| C(React Components)
 ```
+
+## Shout Outs
+
+-   Emoji: https://emojipedia.org/
+-   Icons: https://www.svgrepo.com/
+-   Loading SVG: https://www.svgbackgrounds.com/elements/animated-svg-preloaders/

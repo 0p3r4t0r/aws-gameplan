@@ -9,9 +9,11 @@ import ReactFlow, {
 import queryString from 'query-string'
 
 import 'reactflow/dist/style.css'
-import { ComponentSelector } from './molecules/ComponentSelector'
+import { ComponentSearchable } from './molecules/ComponentSearchable'
 import { nodeTypes } from '../store/nodeTypes'
 import { useGamePlanStore } from '../store'
+import Auth from './molecules/Auth'
+import { Loading } from './atoms/Loading'
 
 export default function Flow() {
     const {
@@ -38,7 +40,9 @@ export default function Flow() {
 
     useEffect(() => {
         if (rfInstance && !stateLoadedFromUrl) {
-            if (location.hash) {
+            // check for #state to prevent conflicts with supabase auth
+            if (location.hash && location.hash.startsWith('#state')) {
+                // Load state from URL
                 const stateObject = queryString.parse(location.hash)
                 const state = JSON.parse(
                     stateObject.state as string
@@ -53,6 +57,7 @@ export default function Flow() {
 
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
+            <Loading isLoading={!rfInstance} />
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -62,7 +67,21 @@ export default function Flow() {
                 nodeTypes={nodeTypes}
                 onInit={onInit}
             >
-                <ComponentSelector />
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 10,
+                        right: 10,
+                        zIndex: 9999999,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 5,
+                        width: '17em',
+                    }}
+                >
+                    <ComponentSearchable />
+                    <Auth />
+                </div>
                 <Controls />
                 <MiniMap />
                 <Background
