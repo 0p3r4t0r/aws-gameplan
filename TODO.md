@@ -22,19 +22,24 @@
 
 ## TODO (easy to use)
 
--   [ ] PWA (mobile friendly)
 -   [ ] undo and redo functionality
--   [x] Supabase setup.
+-   [ ] Supabase setup.
     -   [x] Optional login and save
     -   [x] fix delete diagrams
--   [ ] better ui
--   [ ] cleaner CSS
--   [ ] Walkthrough
+    -   [ ] names for diagrams should be unique to a user, not globally
+    -   [ ] be able to live-edit the same diagram
+-   [x] better ui
+-   [x] cleaner CSS
 -   [ ] Self-host
     -   [ ] Static website (with password?)
     -   [ ] AWS architecture diagram to host.
     -   [ ] Terraform to create infrastructure on AWS.
     -   [ ] Terraform for gcp architecture.
 -   [x] Nicer README
+-   [ ] sematic html
+    -   [ ] Searchable should be an ordered list, as opposed to a bunch of divs
+-   [ ] Generators
+    -   [ ] Word break AWS services
+    -   [ ] Sizes of GamePlanIcons should be editable
 -   [ ] Detailed docs
 -   [ ] Husky hooks behaving weirdly?

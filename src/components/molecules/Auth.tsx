@@ -2,7 +2,6 @@ import React, { FormEventHandler, useCallback, useState } from 'react'
 import { supabase } from '../../supabaseClient'
 import { Diagrams } from '../atoms/Diagrams'
 import { useGamePlanStore } from '../../store'
-import { GamePlanIcons } from '../../__generated__/icons'
 
 /**
  * TODO: refactor into components
@@ -43,75 +42,63 @@ export default function Auth() {
     }
 
     return (
-        <div style={{ position: 'absolute', top: 10, left: 20, zIndex: 100 }}>
+        <div>
             {session ? (
-                <div>
-                    <div>
-                        <span
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => supabase.auth.signOut()}
-                        >
-                            <GamePlanIcons.SignOut />
-                        </span>
-                    </div>
+                <div style={{ position: 'relative' }}>
                     <Diagrams user={session.user} />
+                    <button
+                        onClick={() => supabase.auth.signOut()}
+                        title="Sign Out"
+                        style={{ marginTop: 5, borderRadius: 5 }}
+                    >
+                        Sign Out
+                    </button>
                 </div>
             ) : (
-                <div className="row flex flex-center">
-                    <div className="col-6 form-widget">
-                        <span>{isSignUp ? 'Sign Up' : 'Sign In'}</span>
-                        <form
-                            className="form-widget"
-                            onSubmit={isSignUp ? handleSignUp : handleSignIn}
+                <form
+                    onSubmit={isSignUp ? handleSignUp : handleSignIn}
+                    style={{
+                        marginTop: 10,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 5,
+                    }}
+                >
+                    <input
+                        type="email"
+                        placeholder="email"
+                        value={email}
+                        required={true}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="password"
+                        value={password}
+                        required={true}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <div>
+                        <button className={'button block'} disabled={loading}>
+                            {loading ? (
+                                <span>Loading</span>
+                            ) : (
+                                <span>{isSignUp ? 'Sign Up' : 'Sign In'}</span>
+                            )}
+                        </button>
+                        &nbsp;or&nbsp;
+                        <span
+                            style={{
+                                cursor: 'pointer',
+                                color: 'blue',
+                                textDecoration: 'underline',
+                            }}
+                            onClick={toggle}
                         >
-                            <div>
-                                <input
-                                    className="inputField"
-                                    type="email"
-                                    placeholder="Your email"
-                                    value={email}
-                                    required={true}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    className="inputField"
-                                    type="password"
-                                    placeholder="password"
-                                    value={password}
-                                    required={true}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                            </div>
-                            <div>
-                                <button
-                                    className={'button block'}
-                                    disabled={loading}
-                                >
-                                    {loading ? (
-                                        <span>Loading</span>
-                                    ) : (
-                                        <span>Go!</span>
-                                    )}
-                                </button>
-                                &nbsp; or{' '}
-                                <span
-                                    style={{
-                                        cursor: 'pointer',
-                                        color: 'blue',
-                                        textDecoration: 'underline',
-                                    }}
-                                    onClick={toggle}
-                                >
-                                    {isSignUp ? 'Sign In' : 'Sign Up'}
-                                </span>
-                            </div>
-                        </form>
+                            {isSignUp ? 'Sign In' : 'Sign Up'}
+                        </span>
                     </div>
-                </div>
+                </form>
             )}
         </div>
     )

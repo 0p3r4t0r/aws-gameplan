@@ -67,8 +67,21 @@ export default function Flow() {
                 nodeTypes={nodeTypes}
                 onInit={onInit}
             >
-                <Auth />
-                <ComponentSearchable />
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 10,
+                        right: 10,
+                        zIndex: 9999999,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 5,
+                        width: '17em',
+                    }}
+                >
+                    <ComponentSearchable />
+                    <Auth />
+                </div>
                 <Controls />
                 <MiniMap />
                 <Background

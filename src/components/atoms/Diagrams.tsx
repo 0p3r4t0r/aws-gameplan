@@ -172,17 +172,16 @@ export const Diagrams = ({ user }: DiagramsProps) => {
                 border: 'solid 1px black',
                 borderRadius: 5,
                 padding: 10,
-                position: 'fixed',
-                top: 290, // TODO: Magic number
-                right: 0,
-                width: '15em', // TODO: Magic number
             }}
         >
-            <form className="form-widget" onSubmit={saveDiagram}>
+            <form
+                className="form-widget"
+                onSubmit={saveDiagram}
+                style={{ display: 'flex', marginBottom: -2 }}
+            >
                 <input
-                    size={28} // TODO: Magic number
-                    style={{ marginRight: 10 }}
-                    className="inputField"
+                    // size={28} // TODO: Magic number
+                    style={{ marginRight: 10, flexGrow: 1 }}
                     type="text"
                     placeholder="diagram name"
                     value={formData.name}

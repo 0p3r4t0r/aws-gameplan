@@ -16,7 +16,13 @@ export const Searchable = ({ components }: SearchableProps) => {
     }, [])
 
     return (
-        <>
+        <div
+            style={{
+                height: 250,
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
             <input
                 style={{ margin: '10px 0', width: '100%' }}
                 type="text"
@@ -27,8 +33,9 @@ export const Searchable = ({ components }: SearchableProps) => {
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    overflow: 'scroll',
-                    height: 200,
+                    flexGrow: 1,
+                    overflowY: 'scroll',
+                    gap: 2,
                 }}
             >
                 {components
@@ -37,6 +44,6 @@ export const Searchable = ({ components }: SearchableProps) => {
                         <div key={id}>{findable}</div>
                     ))}
             </div>
-        </>
+        </div>
     )
 }
