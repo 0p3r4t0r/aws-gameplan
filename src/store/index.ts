@@ -16,6 +16,7 @@ import {
     ReactFlowInstance,
     OnInit,
     NodeTypes,
+    ReactFlowJsonObject,
 } from 'reactflow'
 import queryString from 'query-string'
 import { shallow } from 'zustand/shallow'
@@ -38,6 +39,7 @@ type RFState = {
     onConnect: OnConnect
     onInit: OnInit
     addNode: (key: string) => void
+    loadStateFromUrlHash: (state: string) => void
     updateStateLoadedFromUrl: () => void
     saveToUrl: () => void
 }
@@ -143,6 +145,18 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             setState({
                 nodes: [...nodes, newNode],
             })
+        },
+        loadStateFromUrlHash: (stateString) => {
+            const rfInstance = getState().rfInstance
+            if (rfInstance) {
+                const stateObject = queryString.parse(stateString)
+                const state = JSON.parse(
+                    stateObject.state as string
+                ) as ReactFlowJsonObject
+                rfInstance.setNodes(state.nodes)
+                rfInstance.setEdges(state.edges)
+                rfInstance.setViewport(state.viewport)
+            }
         },
         /**
          * You can only load the state from the URL once.

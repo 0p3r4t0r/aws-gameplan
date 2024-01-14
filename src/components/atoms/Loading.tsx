@@ -1,5 +1,6 @@
 import React from 'react'
-import { GamePlanIcons } from '../../__generated__/icons'
+import { Icon } from './Icon'
+import RipplesData from '../../assets/icons/ripples.svg'
 
 type LoadingProps = {
     isLoading: boolean
@@ -26,7 +27,7 @@ export const Loading = ({ isLoading }: LoadingProps) => (
                 height: '100%',
             }}
         >
-            <GamePlanIcons.Ripples />
+            <Icon data={RipplesData} title="save" size={100} />
         </div>
     </div>
 )

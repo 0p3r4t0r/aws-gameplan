@@ -24,9 +24,11 @@
 
 -   [ ] PWA (mobile friendly)
 -   [ ] undo and redo functionality
--   [ ] Supabase setup.
+-   [x] Supabase setup.
     -   [x] Optional login and save
-    -   [ ] better ui
+    -   [x] fix delete diagrams
+-   [ ] better ui
+-   [ ] cleaner CSS
 -   [ ] Walkthrough
 -   [ ] Self-host
     -   [ ] Static website (with password?)

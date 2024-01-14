@@ -9,7 +9,7 @@ import ReactFlow, {
 import queryString from 'query-string'
 
 import 'reactflow/dist/style.css'
-import { ComponentSelector } from './molecules/ComponentSelector'
+import { ComponentSearchable } from './molecules/ComponentSearchable'
 import { nodeTypes } from '../store/nodeTypes'
 import { useGamePlanStore } from '../store'
 import Auth from './molecules/Auth'
@@ -68,7 +68,7 @@ export default function Flow() {
                 onInit={onInit}
             >
                 <Auth />
-                <ComponentSelector />
+                <ComponentSearchable />
                 <Controls />
                 <MiniMap />
                 <Background
