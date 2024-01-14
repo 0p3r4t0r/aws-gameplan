@@ -151,7 +151,7 @@ export const Diagrams = ({ user }: DiagramsProps) => {
     const saveDiagram: FormEventHandler = async (e) => {
         e.preventDefault()
         setLoading(true)
-        const { data } = await supabase
+        const { data, error } = await supabase
             .from('diagrams')
             .insert({
                 name: formData.name,
@@ -159,7 +159,9 @@ export const Diagrams = ({ user }: DiagramsProps) => {
                 user_id: user.id,
             })
             .select()
-        if (data) {
+        if (error) {
+            alert(error.message)
+        } else {
             setDiagrams([...diagrams, data[0]])
         }
         setLoading(false)

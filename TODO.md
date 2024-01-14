@@ -26,7 +26,7 @@
 -   [ ] Supabase setup.
     -   [x] Optional login and save
     -   [x] fix delete diagrams
-    -   [ ] names for diagrams should be unique to a user, not globally
+    -   [x] names for diagrams should be unique to a user, not globally
     -   [ ] be able to live-edit the same diagram
 -   [x] better ui
 -   [x] cleaner CSS
