@@ -6,6 +6,8 @@ import { ReactFlowJsonObject } from 'reactflow'
 import { useGamePlanStore } from '../../store'
 import { GamePlanIcons } from '../../__generated__/icons'
 import { User } from '@supabase/supabase-js'
+import { Icon } from './Icon'
+import RipplesData from '../../assets/icons/ripples.svg'
 
 type Diagram = Database['public']['Tables']['diagrams']['Row']
 type FormData = {
@@ -106,49 +108,64 @@ export const Diagrams = ({ user }: DiagramsProps) => {
     }
 
     return (
-        <div>
+        <div
+            style={{
+                backgroundColor: 'white',
+                border: 'solid 1px black',
+                padding: 10,
+            }}
+        >
             <form className="form-widget" onSubmit={saveDiagram}>
-                <div>
-                    <input
-                        className="inputField"
-                        type="text"
-                        placeholder="diagram name"
-                        value={formData.name}
-                        required={true}
-                        onChange={(e) => setFormState({ name: e.target.value })}
-                    />
-                </div>
-                <div>
-                    <button className={'button block'} disabled={loading}>
-                        {loading ? <span>Loading</span> : <span>Save</span>}
-                    </button>
-                </div>
+                <input
+                    size={25}
+                    style={{ marginRight: 10 }}
+                    className="inputField"
+                    type="text"
+                    placeholder="diagram name"
+                    value={formData.name}
+                    required={true}
+                    onChange={(e) => setFormState({ name: e.target.value })}
+                />
+                {loading ? (
+                    <Icon data={RipplesData} title="save" size={18} />
+                ) : (
+                    <button disabled={loading}>💾</button>
+                )}
             </form>
-            <ul>
+            <ul
+                style={{
+                    padding: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 5,
+                }}
+            >
                 {diagrams.map((diagram) => (
-                    <li key={diagram.name} style={{ display: 'flex', gap: 5 }}>
+                    <li key={diagram.name} style={{ display: 'flex' }}>
                         <div
                             onClick={() => loadDiagram(diagram)}
                             style={{
+                                flexGrow: 1,
                                 cursor: 'pointer',
                                 display: 'flex',
-                                justifyContent: 'center',
+                                justifyContent: 'left',
                                 alignItems: 'center',
+                                width: 25,
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                marginRight: 10,
                             }}
                         >
                             {diagram.name}{' '}
                         </div>
-                        <div
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => updateDiagram(diagram)}
-                        >
-                            <GamePlanIcons.Save />
-                        </div>
-                        <div
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => deleteDiagram(diagram)}
-                        >
-                            <GamePlanIcons.Delete />
+                        <div style={{ display: 'flex', gap: 5 }}>
+                            <button onClick={() => updateDiagram(diagram)}>
+                                💾
+                            </button>
+                            <button onClick={() => deleteDiagram(diagram)}>
+                                ❌
+                            </button>
                         </div>
                     </li>
                 ))}

@@ -29,5 +29,6 @@ flowchart TD
 
 ## Shout Outs
 
+-   Emoji: https://emojipedia.org/
 -   Icons: https://www.svgrepo.com/
 -   Loading SVG: https://www.svgbackgrounds.com/elements/animated-svg-preloaders/

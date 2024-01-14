@@ -47,7 +47,6 @@ export default function Auth() {
             {session ? (
                 <div>
                     <div>
-                        <GamePlanIcons.UserHeart />
                         <span
                             style={{ cursor: 'pointer' }}
                             onClick={() => supabase.auth.signOut()}
