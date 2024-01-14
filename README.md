@@ -26,3 +26,8 @@ flowchart TD
     A(Download AWS Icons) -->|pipeline/awsIcons.sh| B(assets/awsIcons)
     B --> |generators| C(React Components)
 ```
+
+## Shout Outs
+
+-   Icons: https://www.svgrepo.com/
+-   Loading SVG: https://www.svgbackgrounds.com/elements/animated-svg-preloaders/

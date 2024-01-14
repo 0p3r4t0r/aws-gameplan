@@ -98,6 +98,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
         stateLoadedFromUrl: false,
         nodeTypes,
         session: null,
+        loading: true,
         onNodesChange: (changes: NodeChange[]) => {
             setState({
                 nodes: applyNodeChanges(changes, getState().nodes),
@@ -117,11 +118,15 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             getState().saveToUrl()
         },
         onInit: async (rfInstance) => {
-            const { data } = await supabase.auth.getSession()
             supabase.auth.onAuthStateChange((event, session) => {
-                setState({ session })
+                if (
+                    session?.access_token !== getState().session?.access_token
+                ) {
+                    setState({ session })
+                }
             })
-            setState({ rfInstance, session: data?.session })
+            await supabase.auth.getSession()
+            setState({ rfInstance })
         },
         addNode: (key) => {
             const nodes = getState().nodes

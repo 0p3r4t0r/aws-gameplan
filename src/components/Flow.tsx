@@ -12,7 +12,8 @@ import 'reactflow/dist/style.css'
 import { ComponentSelector } from './molecules/ComponentSelector'
 import { nodeTypes } from '../store/nodeTypes'
 import { useGamePlanStore } from '../store'
-import Auth from './Auth'
+import Auth from './molecules/Auth'
+import { Loading } from './atoms/Loading'
 
 export default function Flow() {
     const {
@@ -56,6 +57,7 @@ export default function Flow() {
 
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
+            <Loading isLoading={!rfInstance} />
             <ReactFlow
                 nodes={nodes}
                 edges={edges}

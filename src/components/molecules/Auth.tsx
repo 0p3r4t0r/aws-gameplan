@@ -1,8 +1,8 @@
 import React, { FormEventHandler, useCallback, useState } from 'react'
-import { supabase } from '../supabaseClient'
-import { Diagrams } from './Diagrams'
-import { useGamePlanStore } from '../store'
-import { GamePlanIcons } from '../__generated__/icons'
+import { supabase } from '../../supabaseClient'
+import { Diagrams } from '../atoms/Diagrams'
+import { useGamePlanStore } from '../../store'
+import { GamePlanIcons } from '../../__generated__/icons'
 
 /**
  * TODO: refactor into components

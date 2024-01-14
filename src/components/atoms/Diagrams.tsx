@@ -1,10 +1,10 @@
 import React, { FormEventHandler, useEffect, useState } from 'react'
-import { supabase } from '../supabaseClient'
-import { Database } from '../__generated__/database.types'
+import { supabase } from '../../supabaseClient'
+import { Database } from '../../__generated__/database.types'
 import queryString from 'query-string'
 import { ReactFlowJsonObject } from 'reactflow'
-import { useGamePlanStore } from '../store'
-import { GamePlanIcons } from '../__generated__/icons'
+import { useGamePlanStore } from '../../store'
+import { GamePlanIcons } from '../../__generated__/icons'
 import { User } from '@supabase/supabase-js'
 
 type Diagram = Database['public']['Tables']['diagrams']['Row']
@@ -16,26 +16,29 @@ type DiagramsProps = {
 }
 
 export const Diagrams = ({ user }: DiagramsProps) => {
+    const [initializing, setInitializing] = useState(true)
     const [loading, setLoading] = useState(false)
     const [diagrams, setDiagrams] = useState<Diagram[]>([])
     const [formData, setFormState] = useState<FormData>({ name: '' })
     const rfInstance = useGamePlanStore((state) => state.rfInstance)
 
     useEffect(() => {
-        if (user) {
-            supabase
-                .from('diagrams')
-                .select()
-                .eq('user_id', user.id)
-                .then(({ data: diagrams, error }) => {
-                    if (error) {
-                        console.error(error)
-                    } else if (diagrams.length) {
-                        setDiagrams(diagrams)
-                    }
-                })
-        }
-    }, [])
+        setInitializing(true)
+        supabase
+            .from('diagrams')
+            .select()
+            .eq('user_id', user.id)
+            .then(({ data: diagrams, error }) => {
+                if (error) {
+                    console.error(error)
+                } else if (diagrams.length) {
+                    setDiagrams(diagrams)
+                    setInitializing(false)
+                }
+            })
+    }, [user])
+
+    if (initializing) return <GamePlanIcons.Ripples />
 
     const saveDiagram: FormEventHandler = async (e) => {
         e.preventDefault()
