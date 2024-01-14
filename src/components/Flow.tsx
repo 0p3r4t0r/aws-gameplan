@@ -12,7 +12,7 @@ import 'reactflow/dist/style.css'
 import { ComponentSearchable } from './molecules/ComponentSearchable'
 import { nodeTypes } from '../store/nodeTypes'
 import { useGamePlanStore } from '../store'
-import Auth from './molecules/Auth'
+import Auth from './organisms/Auth'
 import { Loading } from './atoms/Loading'
 
 export default function Flow() {

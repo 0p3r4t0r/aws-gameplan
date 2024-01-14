@@ -4,9 +4,9 @@ import { Database } from '../../__generated__/database.types'
 import { useGamePlanStore } from '../../store'
 import { GamePlanIcons } from '../../__generated__/icons'
 import { User } from '@supabase/supabase-js'
-import { Icon } from './Icon'
+import { Icon } from '../atoms/Icon'
 import RipplesData from '../../assets/icons/ripples.svg'
-import { Searchable, SearchableComponents } from './Searchable'
+import { Searchable, SearchableComponents } from '../atoms/Searchable'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 type Diagram = Database['public']['Tables']['diagrams']['Row']

@@ -13,7 +13,11 @@ A free and simple diagramming tool for AWS that doesn't suck.
 -   The state of each diagram is automatically saved in the url of the page.
     **Any diagram you make can be easily shared simply by copy-pasting the url.**
 
+-   After registering, diagrams can be saved.
+
 ## Architecture
+
+### Generating Icons
 
 Icons are initial taken from the official set provided by Amazon
 (https://aws.amazon.com/architecture/icons/). These icons are cleaned
@@ -25,6 +29,18 @@ flowchart TD
     title[<u>Icons to Components</u>]
     A(Download AWS Icons) -->|pipeline/awsIcons.sh| B(assets/awsIcons)
     B --> |generators| C(React Components)
+```
+
+### The Game Plan Site
+
+The frontend is a static site with the backend being handled by
+[Supabase](https://supabase.com/). This keep everything simple and
+free to host.
+
+```mermaid
+flowchart TD
+    title[<u>GamePlan</u>]
+    A(Static Site) --> B(Supabase)
 ```
 
 ## Shout Outs
