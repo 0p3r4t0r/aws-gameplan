@@ -1,4 +1,4 @@
-import { CircularQueue } from './circularBuffer'
+import { CircularQueue } from './circularQueue'
 import { expect, test } from '@jest/globals'
 
 test('Does not overflow', () => {
