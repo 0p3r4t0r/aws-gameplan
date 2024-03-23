@@ -4,7 +4,9 @@
     },
     "scripts": {
         "start": "node ./build.mjs",
+        "start:watch": "npx watch \"npm start\" ./src",
         "dev": "node ./build-dev.mjs",
+        "dev:watch": "npx watch \"npm run dev\" ./src",
         "deploy": "git subtree push --prefix public origin gh-pages",
         "deploy:recreate": "git push origin -d gh-pages; npm run deploy",
         "generate": "bash ./src/generators/generate.sh",
@@ -48,6 +50,7 @@
         "ts-jest": "^29.1.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.3.3",
+        "watch": "^1.0.2",
         "zustand": "^4.4.7"
     },
     "dependencies": {
