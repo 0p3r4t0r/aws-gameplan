@@ -6,7 +6,7 @@
     pointer-events: all;
 }
 
-.group-drag-handle {
+.group-drag-handle, .group-enable-pointer-events {
     pointer-events: auto;
 }
 
