@@ -61,7 +61,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         filteredFiles.forEach((file) => {
             const componentName = toCamelCase(file)
             writeStream.write(
-                `${componentName}: () => <GroupNode data={${componentName}Data} title="${componentName}" />,\n`
+                `${componentName}: () => <GroupNode imgSrc={${componentName}Data} title="${componentName}" />,\n`
             )
         })
 

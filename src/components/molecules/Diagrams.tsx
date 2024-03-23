@@ -191,7 +191,7 @@ export const Diagrams = ({ user }: DiagramsProps) => {
                     onChange={(e) => setFormData({ name: e.target.value })}
                 />
                 {loading ? (
-                    <Icon data={RipplesData} title="save" size={18} />
+                    <Icon imgSrc={RipplesData} title="save" size={18} />
                 ) : (
                     <button disabled={loading}>💾</button>
                 )}
