@@ -13,28 +13,28 @@
     -   [x] Formatting (Husky)
     -   [x] Fix small scroll
     -   [ ] ~~Move all css to index.css~~
-    -   [ ] Esbuild hot-reload of index.css (someday)
+    -   [x] ~~Esbuild hot-reload of index.css (someday)~~
+        - Use [watch](https://www.npmjs.com/package/watch) to handle hot-reloads
 -   [x] Better CSS
 -   [x] Docs
     -   [x] Mermaid
-    -   [ ] Gif showing features (not yet)
+    -   [ ] ~~Gif showing features (not yet)~~
 -   [x] favicon
 
 ## TODO (easy to use)
 
 -   [ ] undo and redo functionality
--   [ ] Be able to add text annotations to nodes and groups
+-   [x] Be able to add text annotations to nodes and groups
+    - [x] Text annotations for groups only.
 -   [ ] Supabase setup.
     -   [x] Optional login and save
     -   [x] fix delete diagrams
     -   [x] names for diagrams should be unique to a user, not globally
-    -   [ ] Show loading on sign out
-    -   [ ] Validate name unique in real-time before allowing user to save
+    -   [ ] ~~Show loading on sign out~~
+    -   [x] Validate name unique in real-time before allowing user to save
     -   [ ] be able to live-edit the same diagram
 -   [x] better ui
 -   [x] cleaner CSS
--   [ ] sematic html
-    -   [ ] Searchable should be an ordered list, as opposed to a bunch of divs
 -   [ ] Self-host
     -   [ ] Static website (with password?)
     -   [ ] AWS architecture diagram to host.
