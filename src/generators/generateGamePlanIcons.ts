@@ -57,7 +57,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         files.forEach((file) => {
             const componentName = toComponentName(file)
             writeStream.write(
-                `${componentName}: () => <Icon data={${componentName}Data} title="${componentName}" />,\n`
+                `${componentName}: () => <Icon imgSrc={${componentName}Data} title="${componentName}" />,\n`
             )
         })
 

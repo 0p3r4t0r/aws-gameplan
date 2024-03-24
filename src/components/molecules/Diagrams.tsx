@@ -4,9 +4,9 @@ import { Database } from '../../__generated__/database.types'
 import { useGamePlanStore } from '../../store'
 import { GamePlanIcons } from '../../__generated__/icons'
 import { User } from '@supabase/supabase-js'
-import { Icon } from './Icon'
+import { Icon } from '../atoms/Icon'
 import RipplesData from '../../assets/icons/ripples.svg'
-import { Searchable, SearchableComponents } from './Searchable'
+import { Searchable, SearchableComponents } from '../atoms/Searchable'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 type Diagram = Database['public']['Tables']['diagrams']['Row']
@@ -191,7 +191,7 @@ export const Diagrams = ({ user }: DiagramsProps) => {
                     onChange={(e) => setFormData({ name: e.target.value })}
                 />
                 {loading ? (
-                    <Icon data={RipplesData} title="save" size={18} />
+                    <Icon imgSrc={RipplesData} title="save" size={18} />
                 ) : (
                     <button disabled={loading}>💾</button>
                 )}

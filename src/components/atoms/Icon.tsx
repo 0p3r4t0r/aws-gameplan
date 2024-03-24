@@ -1,11 +1,11 @@
 import React from 'react'
 
 type IconProps = {
-    data: string
+    imgSrc: string
     title: string
     size?: number
 }
 
-export const Icon = ({ data, title, size = 32 }: IconProps) => (
-    <img alt={title} src={data} title={title} width={size} height={size} />
+export const Icon = ({ imgSrc, title, size = 32 }: IconProps) => (
+    <img alt={title} src={imgSrc} title={title} width={size} height={size} />
 )

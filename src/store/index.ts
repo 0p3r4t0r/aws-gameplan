@@ -39,6 +39,7 @@ type RFState = {
     onConnect: OnConnect
     onInit: OnInit
     addNode: (key: string) => void
+    editNodeData: (id: string, data: Object) => void,
     loadStateFromUrlHash: (state: string) => void
     updateStateLoadedFromUrl: () => void
     saveToUrl: () => void
@@ -136,7 +137,7 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             const newNodeId = (nodes.length + 1).toString()
             const newNode: Node = {
                 id: newNodeId,
-                data: { label: key },
+                data: { label: key, text: '' },
                 position: { x: 100, y: 200 },
                 type: key,
 
@@ -145,6 +146,16 @@ export const useGamePlanStore = createWithEqualityFn<RFState>(
             setState({
                 nodes: [...nodes, newNode],
             })
+        },
+        editNodeData: (id, data) => {
+            const nodes = getState().nodes
+
+            const editedNode = nodes[nodes.findIndex(node => node.id == id)]
+            editedNode.data = { ...editedNode.data, ...data }
+            setState({
+                nodes: [...nodes],
+            })
+            getState().saveToUrl()
         },
         loadStateFromUrlHash: (stateString) => {
             const rfInstance = getState().rfInstance

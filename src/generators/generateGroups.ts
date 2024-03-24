@@ -33,6 +33,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         // ------------------------------------------------------------------------
         writeStream.write(`
       import React from 'react';
+      import { NodeProps } from 'reactflow'
       import { GroupNode } from '../components/atoms/Group';\n
     `)
 
@@ -61,7 +62,7 @@ function generate(directoryPath: string, outFilePath: string): void {
         filteredFiles.forEach((file) => {
             const componentName = toCamelCase(file)
             writeStream.write(
-                `${componentName}: () => <GroupNode data={${componentName}Data} title="${componentName}" />,\n`
+                `${componentName}: ({ data }: { data: NodeProps['data'] }) => <GroupNode data={data} imgSrc={${componentName}Data} title="${componentName}" />,\n`
             )
         })
 

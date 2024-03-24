@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useCallback, useState } from 'react'
 import { supabase } from '../../supabaseClient'
-import { Diagrams } from '../atoms/Diagrams'
+import { Diagrams } from '../molecules/Diagrams'
 import { useGamePlanStore } from '../../store'
 
 /**

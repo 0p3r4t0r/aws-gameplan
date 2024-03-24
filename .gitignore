@@ -5,3 +5,5 @@ public-dev/
 src/__generated__/*
 # Supabase types cannot be generated without login
 !src/__generated__/database.types.ts
+
+coverage/
